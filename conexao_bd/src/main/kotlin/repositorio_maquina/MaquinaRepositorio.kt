@@ -13,9 +13,9 @@ class MaquinaRepositorio{
     fun configurar(){
         val datasource = BasicDataSource()
         datasource.driverClassName = "com.mysql.cj.jdbc.Driver"
-        datasource.url = "jdbc:mysql://localhost:3306/ServGuard"
-        datasource.username = "seu_usuario"
-        datasource.password = "sua_senha"
+        datasource.url = "jdbc:mysql://localhost:3306/ServGuard?useTimezone=true&serverTimezone=America/Sao_Paulo"
+        datasource.username = "root"
+        datasource.password = "2205"
 
         jdbcTemplate = JdbcTemplate(datasource)
     }
@@ -67,6 +67,19 @@ class MaquinaRepositorio{
             Int::class.java,
             id
         ) > 0
+    }
+
+    fun existePorMac(mac: String): Boolean{
+        return jdbcTemplate.queryForObject("SELECT COUNT(*) FROM Maquina WHERE MACAddress = ?",
+            Int::class.java,
+            mac
+        ) > 0
+    }
+
+    fun buscaIdPorMac(mac: String): Int{
+        return jdbcTemplate.queryForObject("SELECT idMaquina FROM Maquina WHERE MACAddress = ?",
+            Int::class.java,
+            mac)
     }
 
     fun buscarPorId(id:Int): Maquina? {
