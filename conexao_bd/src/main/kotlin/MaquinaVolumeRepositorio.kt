@@ -24,8 +24,8 @@ class MaquinaVolumeRepositorio {
             fkMaquina INT NOT NULL,
             fkVolume INT NOT NULL,
             
-            CONSTRAINT fkMaquinaMaquinaVolume FOREIGN KEY (fkMaquina) REFERENCES ServGuard.Maquina(idMaquina),
-            CONSTRAINT fkVolumeMaquinaVolume FOREIGN KEY (fkVolume) REFERENCES ServGuard.Volume(idVolume),
+            CONSTRAINT fkMaquinaMaquinaVolume FOREIGN KEY (fkMaquina) REFERENCES ServGuard.dominio_maquina.Maquina(idMaquina),
+            CONSTRAINT fkVolumeMaquinaVolume FOREIGN KEY (fkVolume) REFERENCES ServGuard.dominio_volume.Volume(idVolume),
             PRIMARY KEY (idMaquinaVolume, fkMaquina, fkVolume)
             )
         """.trimIndent())

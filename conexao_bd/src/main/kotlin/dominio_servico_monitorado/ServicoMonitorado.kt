@@ -1,4 +1,4 @@
-import java.net.URL
+package dominio_servico_monitorado
 
 class ServicoMonitorado {
 

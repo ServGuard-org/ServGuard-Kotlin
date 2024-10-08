@@ -1,3 +1,5 @@
+package dominio_captura
+
 import java.time.LocalDateTime
 class Captura {
 

@@ -1,3 +1,5 @@
+package dominio_maquina
+
 class Maquina {
     private var idMaquina: Int = 0
     private var fkEmpresa: Int = 0

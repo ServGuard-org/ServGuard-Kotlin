@@ -1,3 +1,5 @@
+package dominio_usuario
+
 class Usuario {
 
     private var idUsuario: Int = 0

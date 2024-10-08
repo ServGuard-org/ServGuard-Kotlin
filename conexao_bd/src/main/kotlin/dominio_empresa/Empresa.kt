@@ -1,3 +1,5 @@
+package dominio_empresa
+
 class Empresa {
 
     private var idEmpresa: Int = 0

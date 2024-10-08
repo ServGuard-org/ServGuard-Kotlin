@@ -1,3 +1,5 @@
+package dominio_maquina_recurso
+
 class MaquinaRecurso {
 
     private var idMaquinaRecurso: Int = 0

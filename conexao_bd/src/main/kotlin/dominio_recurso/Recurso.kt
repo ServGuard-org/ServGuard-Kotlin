@@ -1,3 +1,5 @@
+package dominio_recurso
+
 class Recurso {
 
     private var idRecurso: Int = 0

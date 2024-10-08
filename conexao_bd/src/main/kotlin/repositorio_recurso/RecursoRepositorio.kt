@@ -1,3 +1,6 @@
+package repositorio_recurso
+
+import dominio_recurso.Recurso
 import org.apache.commons.dbcp2.BasicDataSource
 import org.springframework.jdbc.core.BeanPropertyRowMapper
 import org.springframework.jdbc.core.JdbcTemplate
@@ -19,7 +22,7 @@ class RecursoRepositorio {
 
     fun criarTabela(){
         jdbcTemplate.execute("""
-            CREATE TABLE IF NOT EXISTS ServGuard.Recurso(
+            CREATE TABLE IF NOT EXISTS ServGuard.dominio_recurso.Recurso(
             idRecurso INT NOT NULL AUTO_INCREMENT,
             nome VARCHAR(45) NOT NULL,
             unidadeMedida VARCHAR(45) NOT NULL,
@@ -31,7 +34,7 @@ class RecursoRepositorio {
 
     fun inserir(novoValor: Recurso):Boolean{
         return jdbcTemplate.update("""
-            INSERT INTO Recurso (nome, unidadaMedida) VALUES (?,?)
+            INSERT INTO dominio_recurso.Recurso (nome, unidadaMedida) VALUES (?,?)
         """,
             novoValor.getNomeRecurso(),
             novoValor.getUnidadeMedida()
@@ -39,18 +42,18 @@ class RecursoRepositorio {
     }
 
     fun listar():List<Recurso>{
-        return jdbcTemplate.query("SELECT * FROM Recurso", BeanPropertyRowMapper(Recurso::class.java))
+        return jdbcTemplate.query("SELECT * FROM dominio_recurso.Recurso", BeanPropertyRowMapper(Recurso::class.java))
     }
 
     fun existePorId(id: Int): Boolean{
-        return jdbcTemplate.queryForObject("SELECT COUNT(*) FROM Recurso WHERE id = ?",
+        return jdbcTemplate.queryForObject("SELECT COUNT(*) FROM dominio_recurso.Recurso WHERE id = ?",
             Int::class.java,
             id
         ) > 0
     }
 
     fun buscarPorId(id:Int): Recurso? {
-        return jdbcTemplate.queryForObject("SELECT * FROM Recurso WHERE id = ?",
+        return jdbcTemplate.queryForObject("SELECT * FROM dominio_recurso.Recurso WHERE id = ?",
             BeanPropertyRowMapper(Recurso::class.java),
             id
         )
@@ -58,14 +61,14 @@ class RecursoRepositorio {
 
     fun deletarPorId(id:Int):Boolean{
         return jdbcTemplate.update(
-            "DELETE FROM Recurso WHERE id = ?",
+            "DELETE FROM dominio_recurso.Recurso WHERE id = ?",
             id
         ) > 0
     }
 
-    fun atualizarPorId(id:Int, recursoParaAtualizar:Recurso):Boolean{
+    fun atualizarPorId(id:Int, recursoParaAtualizar: Recurso):Boolean{
         return jdbcTemplate.update(
-            """ UPDATE Recurso SET nome = ?, unidadeMedida = ?
+            """ UPDATE dominio_recurso.Recurso SET nome = ?, unidadeMedida = ?
             """,
             recursoParaAtualizar.getNomeRecurso(),
             recursoParaAtualizar.getUnidadeMedida(),

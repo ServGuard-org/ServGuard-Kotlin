@@ -1,7 +1,9 @@
+package repositorio_captura
+
+import dominio_captura.Captura
 import org.apache.commons.dbcp2.BasicDataSource
 import org.springframework.jdbc.core.BeanPropertyRowMapper
 import org.springframework.jdbc.core.JdbcTemplate
-import org.springframework.jdbc.core.queryForObject
 
 class CapturaRepositorio {
 
@@ -19,13 +21,13 @@ class CapturaRepositorio {
 
     fun criarTabela(){
         jdbcTemplate.execute("""
-            CREATE TABLE IF NOT EXISTS ServGuard.Captura(
+            CREATE TABLE IF NOT EXISTS ServGuard.dominio_captura.Captura(
             IdCaptura INT NOT NULL AUTO_INCREMENT,
             fkMaquinaRecurso INT NOT NULL,
             registro DECIMAL(8,3) NOT NULL,
             dthCriacao DATETIME DEFAULT CURRENT_TIMESTAMP NOT NULL,
             
-            CONSTRAINT fkMaquinaRecursoCaptura FOREIGN KEY (fkMaquinaRecurso) REFERENCES ServGuard.MaquinaRecurso(idMaquinaRecurso),
+            CONSTRAINT fkMaquinaRecursoCaptura FOREIGN KEY (fkMaquinaRecurso) REFERENCES ServGuard.dominio_maquina_recurso.MaquinaRecurso(idMaquinaRecurso),
             PRIMARY KEY (idCaptura)
             )
         """.trimIndent())
@@ -34,7 +36,7 @@ class CapturaRepositorio {
 
     fun inserir(novoValor: Captura):Boolean{
         return jdbcTemplate.update("""
-            INSERT INTO Captura (fkMaquinaRecurso, registro, dthCriacao) VALUES (?,?,?)
+            INSERT INTO dominio_captura.Captura (fkMaquinaRecurso, registro, dthCriacao) VALUES (?,?,?)
         """,
            novoValor.getfkMaquinaRecurso(),
            novoValor.getRegistro(),
@@ -43,11 +45,11 @@ class CapturaRepositorio {
     }
 
     fun listar():List<Captura>{
-        return jdbcTemplate.query("SELECT * FROM Captura", BeanPropertyRowMapper(Captura::class.java))
+        return jdbcTemplate.query("SELECT * FROM dominio_captura.Captura", BeanPropertyRowMapper(Captura::class.java))
     }
 
     fun existePorId(id: Int):Boolean{
-        return jdbcTemplate.queryForObject("SELECET COUNT(*) FROM Captura WHERE id = ?",
+        return jdbcTemplate.queryForObject("SELECET COUNT(*) FROM dominio_captura.Captura WHERE id = ?",
             Int::class.java,
             id
             ) > 0
@@ -55,22 +57,22 @@ class CapturaRepositorio {
     }
 
     fun buscarPorid(id: Int): Captura? {
-        return jdbcTemplate.queryForObject("SELECT * FROM Captura WHERE id = ?",
+        return jdbcTemplate.queryForObject("SELECT * FROM dominio_captura.Captura WHERE id = ?",
             BeanPropertyRowMapper(Captura::class.java),
             id
             )
     }
 
     fun deletarPorId(id: Int):Boolean{
-        return jdbcTemplate.update("DELETE FROM Captura WHERE id = ?",
+        return jdbcTemplate.update("DELETE FROM dominio_captura.Captura WHERE id = ?",
             id
             ) > 0
 
     }
 
-    fun atualizarPorId(id:Int, capturaParaAtualizar:Captura):Boolean{
+    fun atualizarPorId(id:Int, capturaParaAtualizar: Captura):Boolean{
         return jdbcTemplate.update("""
-            UPDATE Captura SET fkMaquinaRecurso = ?, registro = ?, dthCriacao = ?
+            UPDATE dominio_captura.Captura SET fkMaquinaRecurso = ?, registro = ?, dthCriacao = ?
         """,
             capturaParaAtualizar.getfkMaquinaRecurso(),
             capturaParaAtualizar.getRegistro(),
