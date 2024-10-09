@@ -14,8 +14,8 @@ class UsuarioRepositorio {
         val datasource = BasicDataSource()
         datasource.driverClassName = "com.mysql.cj.jdbc.Driver"
         datasource.url = "jdbc:mysql://localhost:3306/ServGuard"
-        datasource.username = "seu_usuario"
-        datasource.password = "sua_senha"
+        datasource.username = "root"
+        datasource.password = "#Sanguebom05"
 
         jdbcTemplate = JdbcTemplate(datasource)
     }

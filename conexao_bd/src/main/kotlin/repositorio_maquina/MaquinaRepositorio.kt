@@ -15,7 +15,7 @@ class MaquinaRepositorio{
         datasource.driverClassName = "com.mysql.cj.jdbc.Driver"
         datasource.url = "jdbc:mysql://localhost:3306/ServGuard?useTimezone=true&serverTimezone=America/Sao_Paulo"
         datasource.username = "root"
-        datasource.password = "2205"
+        datasource.password = "#Sanguebom05"
 
         jdbcTemplate = JdbcTemplate(datasource)
     }
