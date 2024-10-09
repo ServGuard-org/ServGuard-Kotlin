@@ -62,6 +62,18 @@ class MaquinaRecursoRepositorio {
         )
     }
 
+
+    fun buscarIdMaquinaRecurso(idRecurso: Int, idMaquina: Int): Int? {
+        return jdbcTemplate.queryForObject(
+            """
+        SELECT idMaquinaRecurso FROM MaquinaRecurso WHERE fkRecurso = ? AND fkMaquina = ?
+        """,
+            Int::class.java,
+            idRecurso,
+            idMaquina
+        )
+    }
+
     fun deletarPorId(id:Int): Boolean{
         return jdbcTemplate.update("DELETE FROM dominio_maquina_recurso.MaquinaRecurso WHERE id = ?",
             id

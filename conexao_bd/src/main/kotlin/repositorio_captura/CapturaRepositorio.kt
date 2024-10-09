@@ -4,6 +4,7 @@ import dominio_captura.Captura
 import org.apache.commons.dbcp2.BasicDataSource
 import org.springframework.jdbc.core.BeanPropertyRowMapper
 import org.springframework.jdbc.core.JdbcTemplate
+import java.time.LocalDateTime
 
 class CapturaRepositorio {
 
@@ -32,6 +33,39 @@ class CapturaRepositorio {
             )
         """.trimIndent())
 
+    }
+
+    fun existePorMac(mac: String): Boolean{
+        return jdbcTemplate.queryForObject("SELECT COUNT(*) FROM Maquina WHERE MACAddress = ?",
+            Int::class.java,
+            mac
+        ) > 0
+    }
+
+    fun buscaIdPorMac(mac: String): Int{
+        return jdbcTemplate.queryForObject("SELECT idMaquina FROM Maquina WHERE MACAddress = ?",
+            Int::class.java,
+            mac)
+    }
+
+    fun inserirBytesEnviados(mac: String, bytesEnviados: Long) {
+
+        val captura =  Captura()
+        captura.setfkMaquinaRecurso(buscaIdPorMac(mac))  // Busca a ID da máquina pelo MAC
+        captura.setRegistro(bytesEnviados.toDouble()) // Convertendo Long para Double
+        captura.setDTHCriacao(LocalDateTime.now())  // Data e hora atual
+
+        inserir(captura) // Chama a função existente para inserir
+    }
+
+    fun inserirBytesRecebidos(mac: String, bytesRecebidos: Long) {
+
+        val captura =  Captura()
+           captura.setfkMaquinaRecurso(buscaIdPorMac(mac))  // Busca a ID da máquina pelo MAC
+           captura.setRegistro(bytesRecebidos.toDouble()) // Convertendo Long para Double
+           captura.setDTHCriacao(LocalDateTime.now())  // Data e hora atual
+
+        inserir(captura) // Chama a função existente para inserir
     }
 
     fun inserir(novoValor: Captura):Boolean{

@@ -59,6 +59,22 @@ class RecursoRepositorio {
         )
     }
 
+    fun existeRecursoPorNome(nomeRecurso: String): Boolean {
+        return jdbcTemplate.queryForObject(
+            "SELECT COUNT(*) FROM dominio_maquina_recurso.MaquinaRecurso WHERE nome = ?",
+            Int::class.java,
+            nomeRecurso
+        ) > 0
+    }
+
+    fun buscarIdRecursoPorNome(nomeRecurso: String): Int {
+        return jdbcTemplate.queryForObject(
+            "SELECT idMaquinaRecurso FROM Recurso WHERE nome = ?",
+            Int::class.java,
+            nomeRecurso
+        )
+    }
+
     fun deletarPorId(id:Int):Boolean{
         return jdbcTemplate.update(
             "DELETE FROM dominio_recurso.Recurso WHERE id = ?",
