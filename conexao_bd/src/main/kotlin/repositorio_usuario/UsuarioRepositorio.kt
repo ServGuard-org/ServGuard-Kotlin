@@ -22,7 +22,7 @@ class UsuarioRepositorio {
 
     fun criarTabela(){
         jdbcTemplate.execute("""
-            CREATE TABLE IF NOT EXISTS ServGuard.dominio_usuario.Usuario(
+            CREATE TABLE IF NOT EXISTS Usuario(
             idUsuario INT NOT NULL AUTO_INCREMENT,
             fkEmpresa INT NOT NULL,
             nome VARCHAR(70) NOT NULL,
@@ -31,7 +31,7 @@ class UsuarioRepositorio {
             isAdm TINYINT NOT NULL,
             isAtivo TINYINT NOT NULL DEFAULT 1,
 
-            CONSTRAINT fkEmpresaUsuario FOREIGN KEY (fkEmpresa) REFERENCES ServGuard.dominio_empresa.Empresa(idEmpresa),
+            CONSTRAINT fkEmpresaUsuario FOREIGN KEY (fkEmpresa) REFERENCES Empresa(idEmpresa),
             PRIMARY KEY (idUsuario, fkEmpresa)
             )
         """.trimIndent())
@@ -39,7 +39,7 @@ class UsuarioRepositorio {
 
     fun inserir(novoValor: Usuario):Boolean{
         return jdbcTemplate.update("""
-            INSERT INTO dominio_usuario.Usuario (fkEmpresa, nome, email, senha, isAdm, isAtivo) VALUES (?, ?, ?, ?, ?, ?)
+            INSERT INTO Usuario (fkEmpresa, nome, email, senha, isAdm, isAtivo) VALUES (?, ?, ?, ?, ?, ?)
         """,
             novoValor.getfkEmpresa(),
             novoValor.getNomeUsuario(),
@@ -52,32 +52,32 @@ class UsuarioRepositorio {
 
 
     fun listar():List<Usuario>{
-        return jdbcTemplate.query("SELECT * FROM dominio_usuario.Usuario", BeanPropertyRowMapper(Usuario::class.java))
+        return jdbcTemplate.query("SELECT * FROM Usuario", BeanPropertyRowMapper(Usuario::class.java))
     }
 
     fun existePorId(id: Int):Boolean{
-        return jdbcTemplate.queryForObject("SELECT COUNT(*) FROM dominio_usuario.Usuario WHERE id = ?",
+        return jdbcTemplate.queryForObject("SELECT COUNT(*) FROM Usuario WHERE id = ?",
             Int::class.java,
             id
         ) > 0
     }
 
     fun buscarPorId(id: Int): Usuario? {
-        return jdbcTemplate.queryForObject("SELECT * FROM dominio_usuario.Usuario WHERE id = ?",
+        return jdbcTemplate.queryForObject("SELECT * FROM Usuario WHERE id = ?",
             BeanPropertyRowMapper(Usuario::class.java),
             id
         )
     }
 
     fun deletarPorId(id:Int): Boolean{
-        return jdbcTemplate.update("DELETE FROM dominio_usuario.Usuario WHERE id = ?",
+        return jdbcTemplate.update("DELETE FROM Usuario WHERE id = ?",
             id
         ) > 0
     }
 
     fun atualizarPorId(id:Int, usuarioParaAtualizar: Usuario): Boolean{
         return jdbcTemplate.update("""
-            UPDATE dominio_usuario.Usuario SET fkEmpresa = ?, nome = ?, email = ?, senha = ?, isAdm = ?, isAtivo = ? 
+            UPDATE Usuario SET fkEmpresa = ?, nome = ?, email = ?, senha = ?, isAdm = ?, isAtivo = ? 
         """,
             usuarioParaAtualizar.getfkEmpresa(),
             usuarioParaAtualizar.getNomeUsuario(),

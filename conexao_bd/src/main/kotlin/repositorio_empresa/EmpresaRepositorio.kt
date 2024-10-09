@@ -21,7 +21,7 @@ class EmpresaRepositorio {
 
     fun criarTabela(){
         jdbcTemplate.execute("""
-            CREATE TABLE IF NOT EXISTS ServGuard.dominio_empresa.Empresa(
+            CREATE TABLE IF NOT EXISTS Empresa(
             idEmpresa INT NOT NULL AUTO_INCREMENT,
             nome VARCHAR(70) NOT NULL,
             nomeResponsavel VARCHAR(70) NOT NULL,
@@ -35,7 +35,7 @@ class EmpresaRepositorio {
 
     fun inserir(novoValor: Empresa): Boolean{
         return jdbcTemplate.update("""
-            INSERT INTO dominio_empresa.Empresa (nome, nomeResponsavel, emailResponsavel, CNPJ)
+            INSERT INTO Empresa (nome, nomeResponsavel, emailResponsavel, CNPJ)
         """,
             novoValor.getNomeEmpresa(),
             novoValor.getNomeResponsavel(),
@@ -45,12 +45,12 @@ class EmpresaRepositorio {
     }
 
     fun listar():List<Empresa>{
-        return jdbcTemplate.query("SELECT * FROM dominio_empresa.Empresa", BeanPropertyRowMapper(Empresa::class.java))
+        return jdbcTemplate.query("SELECT * FROM Empresa", BeanPropertyRowMapper(Empresa::class.java))
     }
 
     fun existirPorId(id:Int):Boolean{
         return jdbcTemplate.queryForObject("""
-            SELECT COUNT(*) FROM dominio_empresa.Empresa WHERE id = ?
+            SELECT COUNT(*) FROM Empresa WHERE id = ?
         """,
             Int::class.java,
             id
@@ -58,21 +58,21 @@ class EmpresaRepositorio {
     }
 
     fun buscarPorId(id:Int): Empresa?{
-        return jdbcTemplate.queryForObject("SELECT * FROM dominio_empresa.Empresa WHERE id = ?",
+        return jdbcTemplate.queryForObject("SELECT * FROM Empresa WHERE id = ?",
             BeanPropertyRowMapper(Empresa::class.java),
             id
             )
     }
 
     fun deletarPorId(id:Int): Boolean{
-        return jdbcTemplate.update("DELETE FROM dominio_empresa.Empresa WHERE id = ?",
+        return jdbcTemplate.update("DELETE FROM Empresa WHERE id = ?",
             id
             ) > 0
     }
 
     fun atualizarPorId(id:Int, empresaParaAtualizar: Empresa): Boolean{
         return jdbcTemplate.update("""
-            UPDATE dominio_empresa.Empresa SET nome = ?, nomeResponsavel = ?, emailResponsavel = ?, CNPJ = ?
+            UPDATE Empresa SET nome = ?, nomeResponsavel = ?, emailResponsavel = ?, CNPJ = ?
         """,
             empresaParaAtualizar.getNomeEmpresa(),
             empresaParaAtualizar.getNomeResponsavel(),

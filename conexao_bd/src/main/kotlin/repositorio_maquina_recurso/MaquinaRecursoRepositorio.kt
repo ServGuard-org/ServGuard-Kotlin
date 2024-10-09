@@ -21,14 +21,14 @@ class MaquinaRecursoRepositorio {
 
     fun criarTabela(){
         jdbcTemplate.execute("""
-            CREATE TABLE IF NOT EXISTS ServGuard.dominio_maquina_recurso.MaquinaRecurso(
+            CREATE TABLE IF NOT EXISTS MaquinaRecurso(
             IdMaquinaRecurso INT NOT NULL AUTO_INCREMENT,
             fkMaquina INT NOT NULL,
             fkRecurso INT NOT NULL,
             max DECIMAL(8,3),
             
-            CONSTRAINT fkMaquinaMaquinaRecurso FOREIGN KEY (fkMaquina) REFERENCES ServGuard.dominio_maquina.Maquina(idMaquina),
-            CONSTRAINT fkRecursoMaquinaRecurso FOREIGN KEY (fkRecurso) REFERENCES ServGuard.dominio_recurso.Recurso(idRecurso),
+            CONSTRAINT fkMaquinaMaquinaRecurso FOREIGN KEY (fkMaquina) REFERENCES Maquina(idMaquina),
+            CONSTRAINT fkRecursoMaquinaRecurso FOREIGN KEY (fkRecurso) REFERENCES Recurso(idRecurso),
             PRIMARY KEY (idMaquinaRecurso, fkMaquina, fkRecurso)
             )
         """.trimIndent())
@@ -36,7 +36,7 @@ class MaquinaRecursoRepositorio {
 
     fun inserir(novoValor: MaquinaRecurso):Boolean{
         return jdbcTemplate.update("""
-            INSERT INTO dominio_maquina_recurso.MaquinaRecurso (fkMaquina, fkRecurso, max) VALUES (?,?,?)
+            INSERT INTO MaquinaRecurso (fkMaquina, fkRecurso, max) VALUES (?,?,?)
         """,
             novoValor.getfkMaquina(),
             novoValor.getfkRecurso(),
@@ -45,18 +45,18 @@ class MaquinaRecursoRepositorio {
     }
 
     fun listar():List<MaquinaRecurso>{
-        return jdbcTemplate.query("SELECT * FROM dominio_maquina_recurso.MaquinaRecurso", BeanPropertyRowMapper(MaquinaRecurso::class.java))
+        return jdbcTemplate.query("SELECT * FROM MaquinaRecurso", BeanPropertyRowMapper(MaquinaRecurso::class.java))
     }
 
     fun existePorId(id: Int):Boolean{
-        return jdbcTemplate.queryForObject("SELECT COUNT(*) FROM dominio_maquina_recurso.MaquinaRecurso WHERE id = ?",
+        return jdbcTemplate.queryForObject("SELECT COUNT(*) FROM MaquinaRecurso WHERE id = ?",
             Int::class.java,
             id
             ) > 0
     }
 
     fun buscarPorId(id: Int): MaquinaRecurso? {
-        return jdbcTemplate.queryForObject("SELECT * FROM dominio_maquina_recurso.MaquinaRecurso WHERE id = ?",
+        return jdbcTemplate.queryForObject("SELECT * FROM MaquinaRecurso WHERE id = ?",
         BeanPropertyRowMapper(MaquinaRecurso::class.java),
         id
         )
@@ -75,14 +75,14 @@ class MaquinaRecursoRepositorio {
     }
 
     fun deletarPorId(id:Int): Boolean{
-        return jdbcTemplate.update("DELETE FROM dominio_maquina_recurso.MaquinaRecurso WHERE id = ?",
+        return jdbcTemplate.update("DELETE FROM MaquinaRecurso WHERE id = ?",
             id
             ) > 0
     }
 
     fun atualizarPorId(id:Int, maquinaRecursoParaAtualizar: MaquinaRecurso): Boolean{
         return jdbcTemplate.update("""
-            UPDATE dominio_maquina_recurso.MaquinaRecurso SET fkMaquina = ?, fkRecurso = ?, max = ?
+            UPDATE MaquinaRecurso SET fkMaquina = ?, fkRecurso = ?, max = ?
         """,
             maquinaRecursoParaAtualizar.getfkMaquina(),
             maquinaRecursoParaAtualizar.getfkRecurso(),

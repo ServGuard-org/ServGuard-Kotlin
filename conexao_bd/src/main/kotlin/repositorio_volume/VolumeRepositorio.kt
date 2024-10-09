@@ -21,7 +21,7 @@ class VolumeRepositorio {
 
     fun criarTabela(){
         jdbcTemplate.execute("""
-            CREATE TABLE IF NOT EXISTS ServGuard.dominio_volume.Volume(
+            CREATE TABLE IF NOT EXISTS Volume(
             idVolume INT NOT NULL AUTO_INCREMENT,
             tipo VARCHAR(50) NOT NULL,
             capacidade DECIMAL(8,3) NOT NULL,
@@ -33,7 +33,7 @@ class VolumeRepositorio {
 
     fun inserir(novoValor: Volume):Boolean{
         return jdbcTemplate.update("""
-            INSERT INTO dominio_volume.Volume (tipo, capacidade) VALUES (?,?)
+            INSERT INTO Volume (tipo, capacidade) VALUES (?,?)
         """,
             novoValor.getTipo(),
             novoValor.getCapacidade()
@@ -41,12 +41,12 @@ class VolumeRepositorio {
     }
 
     fun listar():List<Volume>{
-        return jdbcTemplate.query("SELECT * FROM dominio_volume.Volume", BeanPropertyRowMapper(Volume::class.java))
+        return jdbcTemplate.query("SELECT * FROM Volume", BeanPropertyRowMapper(Volume::class.java))
     }
 
     fun existirPorId(id:Int):Boolean{
         return jdbcTemplate.queryForObject("""
-            SELECT COUNT(*) FROM dominio_volume.Volume WHERE id = ?
+            SELECT COUNT(*) FROM Volume WHERE id = ?
         """,
             Int::class.java,
             id
@@ -55,7 +55,7 @@ class VolumeRepositorio {
 
     fun buscarPorId(id:Int): Volume? {
         return jdbcTemplate.queryForObject("""
-            SELECT * FROM dominio_volume.Volume WHERE id = ? 
+            SELECT * FROM Volume WHERE id = ? 
         """,
             BeanPropertyRowMapper(Volume::class.java),
             id
@@ -64,7 +64,7 @@ class VolumeRepositorio {
 
     fun deletarPorId(id:Int):Boolean{
         return jdbcTemplate.update("""
-            DELETE FROM dominio_volume.Volume WHERE id = ?
+            DELETE FROM Volume WHERE id = ?
         """,
             id
             ) > 0
@@ -72,7 +72,7 @@ class VolumeRepositorio {
 
     fun atualizarPorId(id:Int, volumeparaAtualizar: Volume): Boolean{
         return jdbcTemplate.update("""
-            UPDATE dominio_volume.Volume SET tipo = ?, capacidade = ?
+            UPDATE Volume SET tipo = ?, capacidade = ?
         """,
             volumeparaAtualizar.getTipo(),
             volumeparaAtualizar.getCapacidade(),
