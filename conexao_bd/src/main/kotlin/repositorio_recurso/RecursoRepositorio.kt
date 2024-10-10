@@ -69,7 +69,7 @@ class RecursoRepositorio {
 
     fun buscarIdRecursoPorNome(nomeRecurso: String): Int {
         return jdbcTemplate.queryForObject(
-            "SELECT idMaquinaRecurso FROM Recurso WHERE nome = ?",
+            "SELECT idRecurso FROM Recurso WHERE nome = ?",
             Int::class.java,
             nomeRecurso
         )

@@ -8,13 +8,7 @@
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/conexao_bd/src/main/kotlin/app/appConexaoBD.kt" beforeDir="false" afterPath="$PROJECT_DIR$/conexao_bd/src/main/kotlin/app/appConexaoBD.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/conexao_bd/src/main/kotlin/repositorio_captura/CapturaRepositorio.kt" beforeDir="false" afterPath="$PROJECT_DIR$/conexao_bd/src/main/kotlin/repositorio_captura/CapturaRepositorio.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/conexao_bd/src/main/kotlin/repositorio_empresa/EmpresaRepositorio.kt" beforeDir="false" afterPath="$PROJECT_DIR$/conexao_bd/src/main/kotlin/repositorio_empresa/EmpresaRepositorio.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/conexao_bd/src/main/kotlin/repositorio_maquina/MaquinaRepositorio.kt" beforeDir="false" afterPath="$PROJECT_DIR$/conexao_bd/src/main/kotlin/repositorio_maquina/MaquinaRepositorio.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/conexao_bd/src/main/kotlin/repositorio_maquina_recurso/MaquinaRecursoRepositorio.kt" beforeDir="false" afterPath="$PROJECT_DIR$/conexao_bd/src/main/kotlin/repositorio_maquina_recurso/MaquinaRecursoRepositorio.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/conexao_bd/src/main/kotlin/repositorio_recurso/RecursoRepositorio.kt" beforeDir="false" afterPath="$PROJECT_DIR$/conexao_bd/src/main/kotlin/repositorio_recurso/RecursoRepositorio.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/conexao_bd/src/main/kotlin/repositorio_servico_monitorado/ServicoMonitoradoRepositorio.kt" beforeDir="false" afterPath="$PROJECT_DIR$/conexao_bd/src/main/kotlin/repositorio_servico_monitorado/ServicoMonitoradoRepositorio.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/conexao_bd/src/main/kotlin/repositorio_usuario/UsuarioRepositorio.kt" beforeDir="false" afterPath="$PROJECT_DIR$/conexao_bd/src/main/kotlin/repositorio_usuario/UsuarioRepositorio.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/conexao_bd/src/main/kotlin/repositorio_volume/VolumeRepositorio.kt" beforeDir="false" afterPath="$PROJECT_DIR$/conexao_bd/src/main/kotlin/repositorio_volume/VolumeRepositorio.kt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

@@ -5,8 +5,10 @@ import dominio_captura.Captura
 import repositorio_captura.CapturaRepositorio
 import java.time.LocalDateTime
 import dominio_maquina.Maquina
+import dominio_maquina_recurso.MaquinaRecurso
 import repositorio_maquina.MaquinaRepositorio
 import repositorio_maquina_recurso.MaquinaRecursoRepositorio
+import repositorio_recurso.RecursoRepositorio
 
 open class Main {
     companion object {
@@ -60,6 +62,7 @@ fun capturarDados(mac: String) {
     val maquinaRepositorio = MaquinaRepositorio()
     val capturaRepositorio = CapturaRepositorio()
     val maquinaRecursoRepositorio = MaquinaRecursoRepositorio()
+    val recursoRepositorio = RecursoRepositorio()
 
     maquinaRepositorio.configurar()
     capturaRepositorio.configurar()
@@ -73,23 +76,37 @@ fun capturarDados(mac: String) {
     println("ID do Recurso: $idRecurso")
 
     // Verificar se o IdMaquinaRecurso existe
-    if (!maquinaRepositorio.existePorId(idRecurso)) {
-        println("Recurso não encontrado! Encerrado operação.")
-        return
+
+    val listaNomesRecursos: List<String> = listOf<String>("bytesEnviados", "bytesRecebidos", "pacotesEnviados", "pacotesRecebidos")
+    val listaIdRecursos: MutableList<Int> = mutableListOf<Int>()
+
+    for (recurso in listaNomesRecursos) {
+        var idDaVez = recursoRepositorio.buscarIdRecursoPorNome(recurso)
+        if (idDaVez == null) { // recurso repositorio
+            println("Recurso não encontrado! Encerrando operação.")
+            return
+        }
+        listaIdRecursos.add(idDaVez)
     }
 
-    // Verificar se o idMaquinaRecurso com base no IdRecurso e IdMaquina
-    val idMaquinaRecurso = maquinaRecursoRepositorio.buscarIdMaquinaRecurso(idMaquina, idRecurso)
+    val listaIdMaquinaRecursos: MutableList<Int> = mutableListOf()
+    var contador: Int = 0
 
-    // Validando se foi encontrado
-    if (idMaquinaRecurso == null) {
-        println("ID MaquinaRecurso não encontrado! Encerrando operação")
-        return
+    for (idRecurso in listaIdRecursos) {
+        contador += 1
+        var idMaquinaRecurso = maquinaRecursoRepositorio.buscarIdMaquinaRecurso(idRecurso, idMaquina)
+        if (idMaquinaRecurso == null) { // recurso repositorio
+            println("IdMaquinaRecurso não encontrado! Encerrado operação.")
+            return
+        }
+        listaIdMaquinaRecursos.add(idMaquinaRecurso)
+        println("ID máquina recurso encontrada: $idMaquinaRecurso, para o recurso: ${listaNomesRecursos[contador]}, de id: $idRecurso")
     }
 
-    println("ID máquina recurso encontrada: $idMaquinaRecurso")
 
     while (true) {
+
+        val idMaquinaRecurso = listaIdMaquinaRecursos
 
         // Capturando os bytes recebidos
         val interfacesRede = looca.rede.grupoDeInterfaces.interfaces
@@ -106,7 +123,7 @@ fun capturarDados(mac: String) {
         println("Bytes recebidos: $recebidosMB MB")
 
         // Inserindo os dados dos BytesRecebidos no Banco
-        capturaRepositorio.inserirBytesRecebidos(idMaquinaRecurso.toString(), recebidosMB.toLong())
+        capturaRepositorio.inserirBytesRecebidos(listaIdMaquinaRecursos[1].toString(),recebidosMB)
         println("Dados de bytes recebidos estão sendo inseridos no banco de dados ID MaquinaRecurso: $idMaquinaRecurso")
 
         // Capturando os bytes enviados
@@ -121,9 +138,36 @@ fun capturarDados(mac: String) {
         val enviadosMB = bytesEnviadosTotais / (1024 * 1024)
         println("Bytes enviados: $enviadosMB MB")
 
-        capturaRepositorio.inserirBytesEnviados(idMaquinaRecurso.toString(), enviadosMB)
+        capturaRepositorio.inserirBytesEnviados(listaIdMaquinaRecursos[contador].toString(), enviadosMB)
         println("Dados de bytes enviados inseridos no banco para ID MaquinaRecurso: $idMaquinaRecurso")
 
+        // Capturando os pacotes recebidos
+        var pacotesRecebidosTotais: Long = 0
+
+        for (intRede in interfacesRede){
+
+            val pacotesRecebidos: Long = intRede.pacotesRecebidos
+            pacotesRecebidosTotais += pacotesRecebidos
+        }
+
+        val pacotesRecebidosMB = pacotesRecebidosTotais / (1024*1024)
+        println("Pacotes recebidos: $pacotesRecebidosMB MB")
+
+        capturaRepositorio.inserirPacotesRecebidos(listaIdMaquinaRecursos[contador].toString(), pacotesRecebidosMB)
+
+        // Capturando os pacotes enviados
+        var pacotesEnviadosTotais: Long = 0
+
+        for (intRede in interfacesRede){
+
+            val pacotesEnviados: Long = intRede.pacotesEnviados
+            pacotesEnviadosTotais += pacotesEnviados
+        }
+
+        val pacotesEnviadosMB = pacotesEnviadosTotais / (1024*1024)
+        println("Pacotes enviados: $pacotesEnviadosMB MB")
+
+        capturaRepositorio.inserirPacotesEnviados(listaIdMaquinaRecursos[contador].toString(), pacotesEnviadosMB)
 
         // Os dados serão capturados a cada 30 segundos
         Thread.sleep(30000)

@@ -68,6 +68,26 @@ class CapturaRepositorio {
         inserir(captura) // Chama a função existente para inserir
     }
 
+    fun inserirPacotesRecebidos(mac: String, pacotesRecebidos: Long) {
+
+        val captura =  Captura()
+        captura.setfkMaquinaRecurso(buscaIdPorMac(mac))  // Busca a ID da máquina pelo MAC
+        captura.setRegistro(pacotesRecebidos.toDouble()) // Convertendo Long para Double
+        captura.setDTHCriacao(LocalDateTime.now())  // Data e hora atual
+
+        inserir(captura) // Chama a função existente para inserir
+    }
+
+    fun inserirPacotesEnviados(mac: String, pacotesEnviados: Long) {
+
+        val captura =  Captura()
+        captura.setfkMaquinaRecurso(buscaIdPorMac(mac))  // Busca a ID da máquina pelo MAC
+        captura.setRegistro(pacotesEnviados.toDouble()) // Convertendo Long para Double
+        captura.setDTHCriacao(LocalDateTime.now())  // Data e hora atual
+
+        inserir(captura) // Chama a função existente para inserir
+    }
+
     fun inserir(novoValor: Captura):Boolean{
         return jdbcTemplate.update("""
             INSERT INTO Captura (fkMaquinaRecurso, registro, dthCriacao) VALUES (?,?,?)
