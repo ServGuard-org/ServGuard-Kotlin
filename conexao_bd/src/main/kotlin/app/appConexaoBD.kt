@@ -108,6 +108,12 @@ fun capturarDados(mac: String) {
 
         val idMaquinaRecurso = listaIdMaquinaRecursos
 
+        val indicePacotesEnviados: Int = listaNomesRecursos.indexOf("pacotesEnviados")
+        val indicePacotesRecebidos: Int = listaNomesRecursos.indexOf("pacotesRecebidos")
+        val indicebytesEnviados: Int = listaNomesRecursos.indexOf("bytesEnviados")
+        val indicebytesRecebidos: Int = listaNomesRecursos.indexOf("bytesRecebidos")
+
+
         // Capturando os bytes recebidos
         val interfacesRede = looca.rede.grupoDeInterfaces.interfaces
         var bytesRecebidosTotais: Long = 0
@@ -123,7 +129,7 @@ fun capturarDados(mac: String) {
         println("Bytes recebidos: $recebidosMB MB")
 
         // Inserindo os dados dos BytesRecebidos no Banco
-        capturaRepositorio.inserirBytesRecebidos(listaIdMaquinaRecursos[1].toString(),recebidosMB)
+        capturaRepositorio.inserirBytesRecebidos(indicebytesRecebidos.toString(),recebidosMB)
         println("Dados de bytes recebidos estão sendo inseridos no banco de dados ID MaquinaRecurso: $idMaquinaRecurso")
 
         // Capturando os bytes enviados
@@ -138,7 +144,7 @@ fun capturarDados(mac: String) {
         val enviadosMB = bytesEnviadosTotais / (1024 * 1024)
         println("Bytes enviados: $enviadosMB MB")
 
-        capturaRepositorio.inserirBytesEnviados(listaIdMaquinaRecursos[contador].toString(), enviadosMB)
+        capturaRepositorio.inserirBytesEnviados(indicebytesEnviados.toString(), enviadosMB)
         println("Dados de bytes enviados inseridos no banco para ID MaquinaRecurso: $idMaquinaRecurso")
 
         // Capturando os pacotes recebidos
@@ -152,8 +158,7 @@ fun capturarDados(mac: String) {
 
         val pacotesRecebidosMB = pacotesRecebidosTotais / (1024*1024)
         println("Pacotes recebidos: $pacotesRecebidosMB MB")
-
-        capturaRepositorio.inserirPacotesRecebidos(listaIdMaquinaRecursos[contador].toString(), pacotesRecebidosMB)
+        capturaRepositorio.inserirPacotesRecebidos(indicePacotesRecebidos.toString(), pacotesRecebidosMB)
 
         // Capturando os pacotes enviados
         var pacotesEnviadosTotais: Long = 0
@@ -167,7 +172,7 @@ fun capturarDados(mac: String) {
         val pacotesEnviadosMB = pacotesEnviadosTotais / (1024*1024)
         println("Pacotes enviados: $pacotesEnviadosMB MB")
 
-        capturaRepositorio.inserirPacotesEnviados(listaIdMaquinaRecursos[contador].toString(), pacotesEnviadosMB)
+        capturaRepositorio.inserirPacotesEnviados(indicePacotesEnviados.toString(), pacotesEnviadosMB)
 
         // Os dados serão capturados a cada 30 segundos
         Thread.sleep(30000)
