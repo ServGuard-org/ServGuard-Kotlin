@@ -1,6 +1,7 @@
 package repositorio_captura
 
 import dominio_captura.Captura
+import dominio_maquina_recurso.MaquinaRecurso
 import org.apache.commons.dbcp2.BasicDataSource
 import org.springframework.jdbc.core.BeanPropertyRowMapper
 import org.springframework.jdbc.core.JdbcTemplate
@@ -48,40 +49,48 @@ class CapturaRepositorio {
             mac)
     }
 
-    fun inserirBytesEnviados(mac: String, bytesEnviados: Long) {
+    fun inserirBytesEnviados(idMaquinaRecurso: Int, megabytesEnviados: Long) {
 
         val captura =  Captura()
-        captura.setfkMaquinaRecurso(buscaIdPorMac(mac))  // Busca a ID da máquina pelo MAC
-        captura.setRegistro(bytesEnviados.toDouble()) // Convertendo Long para Double
+        val capturaId = MaquinaRecurso()
+        capturaId.setIdMaquinaRecurso(idMaquinaRecurso) // Busca a Id da máquina recurso
+        //captura.setfkMaquinaRecurso(buscaIdPorMac(mac))  // Busca a ID da máquina pelo MAC
+        captura.setRegistro(megabytesEnviados.toDouble()) // Convertendo Long para Double
         captura.setDTHCriacao(LocalDateTime.now())  // Data e hora atual
 
         inserir(captura) // Chama a função existente para inserir
     }
 
-    fun inserirBytesRecebidos(mac: String, bytesRecebidos: Long) {
+    fun inserirBytesRecebidos(idMaquinaRecurso: Int, megabytesRecebidos: Long) {
 
         val captura =  Captura()
-           captura.setfkMaquinaRecurso(buscaIdPorMac(mac))  // Busca a ID da máquina pelo MAC
-           captura.setRegistro(bytesRecebidos.toDouble()) // Convertendo Long para Double
-           captura.setDTHCriacao(LocalDateTime.now())  // Data e hora atual
+        val capturaId = MaquinaRecurso()
+        capturaId.setIdMaquinaRecurso(idMaquinaRecurso) // Busca a Id da máquina recurso
+        //captura.setfkMaquinaRecurso(buscaIdPorMac(mac))  // Busca a ID da máquina pelo MAC
+        captura.setRegistro(megabytesRecebidos.toDouble()) // Convertendo Long para Double
+        captura.setDTHCriacao(LocalDateTime.now())  // Data e hora atual
 
         inserir(captura) // Chama a função existente para inserir
     }
 
-    fun inserirPacotesRecebidos(mac: String, pacotesRecebidos: Long) {
+    fun inserirPacotesRecebidos(idMaquinaRecurso: Int, pacotesRecebidos: Long) {
 
         val captura =  Captura()
-        captura.setfkMaquinaRecurso(buscaIdPorMac(mac))  // Busca a ID da máquina pelo MAC
+        val capturaId = MaquinaRecurso()
+        capturaId.setIdMaquinaRecurso(idMaquinaRecurso) // Busca a Id da máquina recurso
+        //captura.setfkMaquinaRecurso(buscaIdPorMac(mac)) // Busca a ID da máquina pelo MAC
         captura.setRegistro(pacotesRecebidos.toDouble()) // Convertendo Long para Double
         captura.setDTHCriacao(LocalDateTime.now())  // Data e hora atual
 
         inserir(captura) // Chama a função existente para inserir
     }
 
-    fun inserirPacotesEnviados(mac: String, pacotesEnviados: Long) {
+    fun inserirPacotesEnviados(idMaquinaRecurso: Int, pacotesEnviados: Long) {
 
         val captura =  Captura()
-        captura.setfkMaquinaRecurso(buscaIdPorMac(mac))  // Busca a ID da máquina pelo MAC
+        val capturaId = MaquinaRecurso()
+        capturaId.setIdMaquinaRecurso(idMaquinaRecurso) // Busca a Id da máquina recurso
+        //captura.setfkMaquinaRecurso(buscaIdPorMac(mac))  // Busca a ID da máquina pelo MAC
         captura.setRegistro(pacotesEnviados.toDouble()) // Convertendo Long para Double
         captura.setDTHCriacao(LocalDateTime.now())  // Data e hora atual
 

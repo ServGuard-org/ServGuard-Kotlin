@@ -129,7 +129,7 @@ fun capturarDados(mac: String) {
         println("Bytes recebidos: $recebidosMB MB")
 
         // Inserindo os dados dos BytesRecebidos no Banco
-        capturaRepositorio.inserirBytesRecebidos(indicebytesRecebidos.toString(),recebidosMB)
+        capturaRepositorio.inserirBytesRecebidos(indicebytesRecebidos,recebidosMB)
         println("Dados de bytes recebidos estão sendo inseridos no banco de dados ID MaquinaRecurso: $idMaquinaRecurso")
 
         // Capturando os bytes enviados
@@ -144,7 +144,7 @@ fun capturarDados(mac: String) {
         val enviadosMB = bytesEnviadosTotais / (1024 * 1024)
         println("Bytes enviados: $enviadosMB MB")
 
-        capturaRepositorio.inserirBytesEnviados(indicebytesEnviados.toString(), enviadosMB)
+        capturaRepositorio.inserirBytesEnviados(indicebytesEnviados, enviadosMB)
         println("Dados de bytes enviados inseridos no banco para ID MaquinaRecurso: $idMaquinaRecurso")
 
         // Capturando os pacotes recebidos
@@ -158,7 +158,7 @@ fun capturarDados(mac: String) {
 
         val pacotesRecebidosMB = pacotesRecebidosTotais / (1024*1024)
         println("Pacotes recebidos: $pacotesRecebidosMB MB")
-        capturaRepositorio.inserirPacotesRecebidos(indicePacotesRecebidos.toString(), pacotesRecebidosMB)
+        capturaRepositorio.inserirPacotesRecebidos(indicePacotesRecebidos, pacotesRecebidosMB)
 
         // Capturando os pacotes enviados
         var pacotesEnviadosTotais: Long = 0
@@ -172,7 +172,7 @@ fun capturarDados(mac: String) {
         val pacotesEnviadosMB = pacotesEnviadosTotais / (1024*1024)
         println("Pacotes enviados: $pacotesEnviadosMB MB")
 
-        capturaRepositorio.inserirPacotesEnviados(indicePacotesEnviados.toString(), pacotesEnviadosMB)
+        capturaRepositorio.inserirPacotesEnviados(indicePacotesEnviados, pacotesEnviadosMB)
 
         // Os dados serão capturados a cada 30 segundos
         Thread.sleep(30000)
