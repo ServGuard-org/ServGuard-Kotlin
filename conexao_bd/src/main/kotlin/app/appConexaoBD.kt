@@ -66,6 +66,8 @@ fun capturarDados(mac: String) {
 
     maquinaRepositorio.configurar()
     capturaRepositorio.configurar()
+    maquinaRecursoRepositorio.configurar()
+    recursoRepositorio.configurar()
 
     // Buscando o id da máquina pelo MAC
     val idMaquina: Int = maquinaRepositorio.buscaIdPorMac(mac)
@@ -77,7 +79,7 @@ fun capturarDados(mac: String) {
 
     // Verificar se o IdMaquinaRecurso existe
 
-    val listaNomesRecursos: List<String> = listOf<String>("bytesEnviados", "bytesRecebidos", "pacotesEnviados", "pacotesRecebidos")
+    val listaNomesRecursos: List<String> = listOf<String>("megabytesEnviados", "megabytesRecebidos", "pacotesEnviados", "pacotesRecebidos")
     val listaIdRecursos: MutableList<Int> = mutableListOf<Int>()
 
     for (recurso in listaNomesRecursos) {
@@ -90,7 +92,7 @@ fun capturarDados(mac: String) {
     }
 
     val listaIdMaquinaRecursos: MutableList<Int> = mutableListOf()
-    var contador: Int = 0
+    var contador: Int = -1
 
     for (idRecurso in listaIdRecursos) {
         contador += 1

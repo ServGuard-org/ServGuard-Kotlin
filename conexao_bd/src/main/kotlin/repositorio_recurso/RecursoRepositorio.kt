@@ -13,7 +13,7 @@ class RecursoRepositorio {
     fun configurar(){
         val datasource = BasicDataSource()
         datasource.driverClassName = "com.mysql.cj.jdbc.Driver"
-        datasource.url = "jdbc:mysql://localhost:3306/ServGuard"
+        datasource.url = "jdbc:mysql://localhost:3306/ServGuard?useTimezone=true&serverTimezone=America/Sao_Paulo"
         datasource.username = "root"
         datasource.password = "#Sanguebom05"
 
@@ -67,7 +67,7 @@ class RecursoRepositorio {
         ) > 0
     }
 
-    fun buscarIdRecursoPorNome(nomeRecurso: String): Int {
+    fun buscarIdRecursoPorNome(nomeRecurso: String): Int? {
         return jdbcTemplate.queryForObject(
             "SELECT idRecurso FROM Recurso WHERE nome = ?",
             Int::class.java,
