@@ -16,7 +16,7 @@ class CapturaRepositorio {
         datasource.driverClassName = "com.mysql.cj.jdbc.Driver"
         datasource.url = "jdbc:mysql://localhost:3306/ServGuard?useTimezone=true&serverTimezone=America/Sao_Paulo"
         datasource.username = "root"
-        datasource.password = "#Sanguebom05"
+        datasource.password = "2205"
 
         jdbcTemplate = JdbcTemplate(datasource)
     }
@@ -49,62 +49,40 @@ class CapturaRepositorio {
             mac)
     }
 
-    fun inserirBytesEnviados(idMaquinaRecurso: Int, megabytesEnviados: Long) {
-
-        val captura =  Captura()
-        val capturaId = MaquinaRecurso()
-        capturaId.setIdMaquinaRecurso(idMaquinaRecurso) // Busca a Id da máquina recurso
-        //captura.setfkMaquinaRecurso(buscaIdPorMac(mac))  // Busca a ID da máquina pelo MAC
-        captura.setRegistro(megabytesEnviados.toDouble()) // Convertendo Long para Double
-        captura.setDTHCriacao(LocalDateTime.now())  // Data e hora atual
-
-        inserir(captura) // Chama a função existente para inserir
-    }
-
-    fun inserirBytesRecebidos(idMaquinaRecurso: Int, megabytesRecebidos: Long) {
-
-        val captura =  Captura()
-        val capturaId = MaquinaRecurso()
-        capturaId.setIdMaquinaRecurso(idMaquinaRecurso) // Busca a Id da máquina recurso
-        //captura.setfkMaquinaRecurso(buscaIdPorMac(mac))  // Busca a ID da máquina pelo MAC
-        captura.setRegistro(megabytesRecebidos.toDouble()) // Convertendo Long para Double
-        captura.setDTHCriacao(LocalDateTime.now())  // Data e hora atual
-
-        inserir(captura) // Chama a função existente para inserir
-    }
-
-    fun inserirPacotesRecebidos(idMaquinaRecurso: Int, pacotesRecebidos: Long) {
-
-        val captura =  Captura()
-        val capturaId = MaquinaRecurso()
-        capturaId.setIdMaquinaRecurso(idMaquinaRecurso) // Busca a Id da máquina recurso
-        //captura.setfkMaquinaRecurso(buscaIdPorMac(mac)) // Busca a ID da máquina pelo MAC
-        captura.setRegistro(pacotesRecebidos.toDouble()) // Convertendo Long para Double
-        captura.setDTHCriacao(LocalDateTime.now())  // Data e hora atual
-
-        inserir(captura) // Chama a função existente para inserir
-    }
-
-    fun inserirPacotesEnviados(idMaquinaRecurso: Int, pacotesEnviados: Long) {
-
-        val captura =  Captura()
-        val capturaId = MaquinaRecurso()
-        capturaId.setIdMaquinaRecurso(idMaquinaRecurso) // Busca a Id da máquina recurso
-        //captura.setfkMaquinaRecurso(buscaIdPorMac(mac))  // Busca a ID da máquina pelo MAC
-        captura.setRegistro(pacotesEnviados.toDouble()) // Convertendo Long para Double
-        captura.setDTHCriacao(LocalDateTime.now())  // Data e hora atual
-
-        inserir(captura) // Chama a função existente para inserir
-    }
-
-    fun inserir(novoValor: Captura):Boolean{
+    fun inserirBytesEnviados(idMaquinaRecurso: Int, megabytesEnviados: Long): Boolean {
         return jdbcTemplate.update("""
-            INSERT INTO Captura (fkMaquinaRecurso, registro, dthCriacao) VALUES (?,?,?)
+            INSERT INTO Captura (fkMaquinaRecurso, registro) VALUES (?,?)
         """,
-           novoValor.getfkMaquinaRecurso(),
-           novoValor.getRegistro(),
-           novoValor.getDTHCriacao()
-            ) > 0
+            idMaquinaRecurso,
+            megabytesEnviados,
+        ) > 0
+    }
+
+    fun inserirBytesRecebidos(idMaquinaRecurso: Int, megabytesRecebidos: Long): Boolean {
+        return jdbcTemplate.update("""
+            INSERT INTO Captura (fkMaquinaRecurso, registro) VALUES (?,?)
+        """,
+            idMaquinaRecurso,
+            megabytesRecebidos,
+        ) > 0
+    }
+
+    fun inserirPacotesRecebidos(idMaquinaRecurso: Int, pacotesRecebidos: Long): Boolean {
+        return jdbcTemplate.update("""
+            INSERT INTO Captura (fkMaquinaRecurso, registro) VALUES (?,?)
+        """,
+            idMaquinaRecurso,
+            pacotesRecebidos,
+        ) > 0
+    }
+
+    fun inserirPacotesEnviados(idMaquinaRecurso: Int, pacotesEnviados: Long): Boolean {
+        return jdbcTemplate.update("""
+            INSERT INTO Captura (fkMaquinaRecurso, registro) VALUES (?,?)
+        """,
+            idMaquinaRecurso,
+            pacotesEnviados,
+        ) > 0
     }
 
     fun listar():List<Captura>{

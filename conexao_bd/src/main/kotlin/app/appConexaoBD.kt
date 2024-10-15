@@ -34,7 +34,7 @@ open class Main {
                 println("Verificando máquina com MAC Address: ${intRede.enderecoMac}")
                 if(maquinaRepositorio.existePorMac(intRede.enderecoMac)) {
                     maquinaCadastrada = true
-                    println("\nMáquina cadastrada com sucesso! Capturando dados para o MAC: ${intRede.enderecoMac} ")
+                    println("\nMáquina já cadastrada! Capturando dados para o MAC: ${intRede.enderecoMac} ")
                     capturarDados(intRede.enderecoMac)
                     break
                 } else {
@@ -92,28 +92,36 @@ fun capturarDados(mac: String) {
     }
 
     val listaIdMaquinaRecursos: MutableList<Int> = mutableListOf()
-    var contador: Int = -1
+    var contador: Int = 0
 
-    for (idRecurso in listaIdRecursos) {
-        contador += 1
-        var idMaquinaRecurso = maquinaRecursoRepositorio.buscarIdMaquinaRecurso(idRecurso, idMaquina)
+    for (idRecursoAtual in listaIdRecursos) {
+        val idMaquinaRecurso = maquinaRecursoRepositorio.buscarIdMaquinaRecurso(idRecursoAtual, idMaquina)
         if (idMaquinaRecurso == null) { // recurso repositorio
             println("IdMaquinaRecurso não encontrado! Encerrado operação.")
             return
         }
         listaIdMaquinaRecursos.add(idMaquinaRecurso)
         println("ID máquina recurso encontrada: $idMaquinaRecurso, para o recurso: ${listaNomesRecursos[contador]}, de id: $idRecurso")
+        contador ++
     }
 
 
     while (true) {
 
-        val idMaquinaRecurso = listaIdMaquinaRecursos
-
         val indicePacotesEnviados: Int = listaNomesRecursos.indexOf("pacotesEnviados")
         val indicePacotesRecebidos: Int = listaNomesRecursos.indexOf("pacotesRecebidos")
-        val indicebytesEnviados: Int = listaNomesRecursos.indexOf("bytesEnviados")
-        val indicebytesRecebidos: Int = listaNomesRecursos.indexOf("bytesRecebidos")
+        val indicebytesEnviados: Int = listaNomesRecursos.indexOf("megabytesEnviados")
+        val indicebytesRecebidos: Int = listaNomesRecursos.indexOf("megabytesRecebidos")
+
+        val idMaquinaRecursoPCTEnviados = listaIdMaquinaRecursos[indicePacotesEnviados]
+        val idMaquinaRecursoPCTRecebidos = listaIdMaquinaRecursos[indicePacotesRecebidos]
+        val idMaquinaRecursoBytesEnviados = listaIdMaquinaRecursos[indicebytesEnviados]
+        val idMaquinaRecursoBytesRecebidos = listaIdMaquinaRecursos[indicebytesRecebidos]
+
+        println("idMaquinaRecursoPCTEnviados: $idMaquinaRecursoPCTEnviados")
+        println("idMaquinaRecursoPCTRecebidos: $idMaquinaRecursoPCTRecebidos")
+        println("idMaquinaRecursoBytesEnviados: $idMaquinaRecursoBytesEnviados")
+        println("idMaquinaRecursoBytesRecebidos: $idMaquinaRecursoBytesRecebidos")
 
 
         // Capturando os bytes recebidos
@@ -131,8 +139,8 @@ fun capturarDados(mac: String) {
         println("Bytes recebidos: $recebidosMB MB")
 
         // Inserindo os dados dos BytesRecebidos no Banco
-        capturaRepositorio.inserirBytesRecebidos(indicebytesRecebidos,recebidosMB)
-        println("Dados de bytes recebidos estão sendo inseridos no banco de dados ID MaquinaRecurso: $idMaquinaRecurso")
+        capturaRepositorio.inserirBytesRecebidos(idMaquinaRecursoBytesRecebidos,recebidosMB)
+        println("Dados de bytes recebidos estão sendo inseridos no banco de dados")
 
         // Capturando os bytes enviados
         var bytesEnviadosTotais: Long = 0
@@ -146,8 +154,8 @@ fun capturarDados(mac: String) {
         val enviadosMB = bytesEnviadosTotais / (1024 * 1024)
         println("Bytes enviados: $enviadosMB MB")
 
-        capturaRepositorio.inserirBytesEnviados(indicebytesEnviados, enviadosMB)
-        println("Dados de bytes enviados inseridos no banco para ID MaquinaRecurso: $idMaquinaRecurso")
+        capturaRepositorio.inserirBytesEnviados(idMaquinaRecursoBytesEnviados, enviadosMB)
+        println("Dados de bytes enviados inseridos no banco")
 
         // Capturando os pacotes recebidos
         var pacotesRecebidosTotais: Long = 0
@@ -158,9 +166,9 @@ fun capturarDados(mac: String) {
             pacotesRecebidosTotais += pacotesRecebidos
         }
 
-        val pacotesRecebidosMB = pacotesRecebidosTotais / (1024*1024)
-        println("Pacotes recebidos: $pacotesRecebidosMB MB")
-        capturaRepositorio.inserirPacotesRecebidos(indicePacotesRecebidos, pacotesRecebidosMB)
+        val pacotesRecebidos = pacotesRecebidosTotais
+        println("Pacotes recebidos: $pacotesRecebidos")
+        capturaRepositorio.inserirPacotesRecebidos(idMaquinaRecursoPCTRecebidos, pacotesRecebidos)
 
         // Capturando os pacotes enviados
         var pacotesEnviadosTotais: Long = 0
@@ -171,10 +179,10 @@ fun capturarDados(mac: String) {
             pacotesEnviadosTotais += pacotesEnviados
         }
 
-        val pacotesEnviadosMB = pacotesEnviadosTotais / (1024*1024)
-        println("Pacotes enviados: $pacotesEnviadosMB MB")
+        val pacotesEnviados = pacotesEnviadosTotais
+        println("Pacotes enviados: $pacotesEnviados")
 
-        capturaRepositorio.inserirPacotesEnviados(indicePacotesEnviados, pacotesEnviadosMB)
+        capturaRepositorio.inserirPacotesEnviados(idMaquinaRecursoPCTEnviados, pacotesEnviados)
 
         // Os dados serão capturados a cada 30 segundos
         Thread.sleep(30000)
