@@ -1,14 +1,16 @@
 package app
 
-import com.github.britooo.looca.api.core.Looca
 import dominio_captura.Captura
-import repositorio_captura.CapturaRepositorio
 import java.time.LocalDateTime
 import dominio_maquina.Maquina
 import dominio_maquina_recurso.MaquinaRecurso
+import dominio_slack.Slack
+import com.github.britooo.looca.api.core.Looca
+import repositorio_captura.CapturaRepositorio
 import repositorio_maquina.MaquinaRepositorio
 import repositorio_maquina_recurso.MaquinaRecursoRepositorio
 import repositorio_recurso.RecursoRepositorio
+import org.json.JSONObject
 
 open class Main {
     companion object {
@@ -191,6 +193,8 @@ fun capturarDados(mac: String) {
 
         // Os dados serão capturados a cada 30 segundos
         Thread.sleep(30000)
+
+
 
     }
 
