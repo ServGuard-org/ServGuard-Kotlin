@@ -6,6 +6,16 @@
   <component name="ChangeListManager">
     <list default="true" id="a0a69d1d-f943-44e4-b350-faf39f97ba8d" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/conexao_bd/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/conexao_bd/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/conexao_bd/src/main/kotlin/AppSlack.kt" beforeDir="false" afterPath="$PROJECT_DIR$/conexao_bd/src/main/kotlin/AppSlack.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/conexao_bd/src/main/kotlin/repositorio_captura/CapturaRepositorio.kt" beforeDir="false" afterPath="$PROJECT_DIR$/conexao_bd/src/main/kotlin/repositorio_captura/CapturaRepositorio.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/conexao_bd/src/main/kotlin/repositorio_empresa/EmpresaRepositorio.kt" beforeDir="false" afterPath="$PROJECT_DIR$/conexao_bd/src/main/kotlin/repositorio_empresa/EmpresaRepositorio.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/conexao_bd/src/main/kotlin/repositorio_maquina/MaquinaRepositorio.kt" beforeDir="false" afterPath="$PROJECT_DIR$/conexao_bd/src/main/kotlin/repositorio_maquina/MaquinaRepositorio.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/conexao_bd/src/main/kotlin/repositorio_maquina_recurso/MaquinaRecursoRepositorio.kt" beforeDir="false" afterPath="$PROJECT_DIR$/conexao_bd/src/main/kotlin/repositorio_maquina_recurso/MaquinaRecursoRepositorio.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/conexao_bd/src/main/kotlin/repositorio_recurso/RecursoRepositorio.kt" beforeDir="false" afterPath="$PROJECT_DIR$/conexao_bd/src/main/kotlin/repositorio_recurso/RecursoRepositorio.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/conexao_bd/src/main/kotlin/repositorio_servico_monitorado/ServicoMonitoradoRepositorio.kt" beforeDir="false" afterPath="$PROJECT_DIR$/conexao_bd/src/main/kotlin/repositorio_servico_monitorado/ServicoMonitoradoRepositorio.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/conexao_bd/src/main/kotlin/repositorio_usuario/UsuarioRepositorio.kt" beforeDir="false" afterPath="$PROJECT_DIR$/conexao_bd/src/main/kotlin/repositorio_usuario/UsuarioRepositorio.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/conexao_bd/src/main/kotlin/repositorio_volume/VolumeRepositorio.kt" beforeDir="false" afterPath="$PROJECT_DIR$/conexao_bd/src/main/kotlin/repositorio_volume/VolumeRepositorio.kt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -31,29 +41,29 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Kotlin.AppSlackKt.executor": "Debug",
-    "Kotlin.Main.executor": "Run",
-    "Maven.conexao_bd [package].executor": "Run",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "main",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "F:/Geral/SPTECH/2o Semestre/PI/teste/ServGuard-Kotlin/jars",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Kotlin.AppSlackKt.executor&quot;: &quot;Run&quot;,
+    &quot;Kotlin.Main.executor&quot;: &quot;Run&quot;,
+    &quot;Maven.conexao_bd [package].executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;F:/Geral/SPTECH/2o Semestre/PI/teste/ServGuard-Kotlin/jars&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="F:\Geral\SPTECH\2o Semestre\PI\teste\ServGuard-Kotlin\jars" />
     </key>
   </component>
-  <component name="RunManager" selected="Kotlin.AppSlackKt">
+  <component name="RunManager">
     <configuration name="AppSlackKt" type="JetRunConfigurationType" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="AppSlackKt" />
       <module name="conexao_bd" />
@@ -103,6 +113,7 @@
       <workItem from="1729302311397" duration="155000" />
       <workItem from="1729453236184" duration="1275000" />
       <workItem from="1730215664839" duration="2764000" />
+      <workItem from="1730239794127" duration="2010000" />
     </task>
     <servers />
   </component>

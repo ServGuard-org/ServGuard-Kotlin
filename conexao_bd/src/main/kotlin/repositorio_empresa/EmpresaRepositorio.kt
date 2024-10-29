@@ -11,10 +11,14 @@ class EmpresaRepositorio {
     lateinit var jdbcTemplate: JdbcTemplate
 
     fun configurar(){
-        val dotenv = dotenv()
+        val dotenv = dotenv {
+            directory = "conexao_bd/src/main/kotlin/"
+            ignoreIfMalformed = true
+            ignoreIfMissing = true
+        }
         val datasource = BasicDataSource()
         datasource.driverClassName = "com.mysql.cj.jdbc.Driver"
-        datasource.url = "jdbc:mysql://${dotenv["DB_HOST"]}:${dotenv["DB_PORT"]}/${dotenv["DATABASE"]}"
+        datasource.url = "jdbc:mysql://${dotenv["DB_HOST"]}:${dotenv["DB_PORT"]}/${dotenv["DATABASE"]}?serverTimezone=America/Sao_Paulo"
         datasource.username = dotenv["DB_USER"]
         datasource.password = dotenv["DB_PASSWORD"]
 
