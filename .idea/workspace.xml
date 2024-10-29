@@ -5,12 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a0a69d1d-f943-44e4-b350-faf39f97ba8d" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/conexao_bd/src/main/kotlin/AppSlack.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/conexao_bd/src/main/kotlin/dominio_slack/Slack.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/conexao_bd/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/conexao_bd/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/conexao_bd/src/main/kotlin/app/appConexaoBD.kt" beforeDir="false" afterPath="$PROJECT_DIR$/conexao_bd/src/main/kotlin/app/appConexaoBD.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/conexao_bd/src/main/kotlin/AppSlack.kt" beforeDir="false" afterPath="$PROJECT_DIR$/conexao_bd/src/main/kotlin/AppSlack.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/conexao_bd/src/main/kotlin/repositorio_maquina_recurso/MaquinaRecursoRepositorio.kt" beforeDir="false" afterPath="$PROJECT_DIR$/conexao_bd/src/main/kotlin/repositorio_maquina_recurso/MaquinaRecursoRepositorio.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/conexao_bd/src/main/kotlin/repositorio_volume/VolumeRepositorio.kt" beforeDir="false" afterPath="$PROJECT_DIR$/conexao_bd/src/main/kotlin/repositorio_volume/VolumeRepositorio.kt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -38,7 +37,7 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
-    "Kotlin.AppSlackKt.executor": "Run",
+    "Kotlin.AppSlackKt.executor": "Debug",
     "Kotlin.Main.executor": "Run",
     "Maven.conexao_bd [package].executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
@@ -58,7 +57,7 @@
       <recent name="F:\Geral\SPTECH\2o Semestre\PI\teste\ServGuard-Kotlin\jars" />
     </key>
   </component>
-  <component name="RunManager" selected="Kotlin.AppSlackKt">
+  <component name="RunManager">
     <configuration name="AppSlackKt" type="JetRunConfigurationType" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="AppSlackKt" />
       <module name="conexao_bd" />
@@ -80,6 +79,14 @@
       </list>
     </recent_temporary>
   </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-jdk-9f38398b9061-39b83d9b5494-intellij.indexing.shared.core-IU-241.18034.62" />
+        <option value="bundled-js-predefined-1d06a55b98c1-0b3e54e931b4-JavaScript-IU-241.18034.62" />
+      </set>
+    </attachedChunks>
+  </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
@@ -99,6 +106,7 @@
       <workItem from="1729134674249" duration="72000" />
       <workItem from="1729302311397" duration="155000" />
       <workItem from="1729453236184" duration="1275000" />
+      <workItem from="1730215664839" duration="2764000" />
     </task>
     <servers />
   </component>

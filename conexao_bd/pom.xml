@@ -139,6 +139,11 @@
             <artifactId>json</artifactId>
             <version>20210307</version>
         </dependency>
+    <dependency>
+        <groupId>io.github.cdimascio</groupId>
+        <artifactId>dotenv-kotlin</artifactId>
+        <version>6.4.2</version>
+    </dependency>
     </dependencies>
 
 </project>

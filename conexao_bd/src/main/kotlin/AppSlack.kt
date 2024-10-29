@@ -11,7 +11,7 @@ fun main() {
 
     val maquina_recurso = repositorio_maquina_recurso.MaquinaRecursoRepositorio()
     maquina_recurso.configurar()
-    print(maquina_recurso.obterAlerta(1,1))
+    println(maquina_recurso.obterAlerta(2,1))
 
     slack.enviar(mensagem)
 

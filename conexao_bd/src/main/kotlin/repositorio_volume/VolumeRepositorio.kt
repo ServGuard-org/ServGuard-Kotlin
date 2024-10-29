@@ -4,17 +4,19 @@ import dominio_volume.Volume
 import org.apache.commons.dbcp2.BasicDataSource
 import org.springframework.jdbc.core.BeanPropertyRowMapper
 import org.springframework.jdbc.core.JdbcTemplate
+import io.github.cdimascio.dotenv.dotenv
 
 class VolumeRepositorio {
 
     lateinit var jdbcTemplate: JdbcTemplate
 
     fun configurar(){
+        val dotenv = dotenv()
         val datasource = BasicDataSource()
         datasource.driverClassName = "com.mysql.cj.jdbc.Driver"
-        datasource.url = "jdbc:mysql://localhost:3306/ServGuard"
-        datasource.username = "root"
-        datasource.password = "#Sanguebom05"
+        datasource.url = "jdbc:mysql://${dotenv["DB_HOST"]}:${dotenv["DB_PORT"]}/${dotenv["DATABASE"]}"
+        datasource.username = dotenv["DB_USER"]
+        datasource.password = dotenv["DB_PASSWORD"]
 
         jdbcTemplate = JdbcTemplate(datasource)
     }

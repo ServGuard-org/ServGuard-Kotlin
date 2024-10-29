@@ -57,8 +57,8 @@ class MaquinaRecursoRepositorio {
             ) > 0
     }
 
-    fun obterAlerta(fkMaquina: Int, fkRecurso: Int):Double{
-        return jdbcTemplate.queryForObject("SELECT max FROM MaquinaRecurso WHERE fkMaquina = ?, and fkRecurso = ?",
+    fun obterAlerta(fkMaquina: Int, fkRecurso: Int):Double? {
+        return jdbcTemplate.queryForObject("SELECT max FROM MaquinaRecurso WHERE fkMaquina = ? AND fkRecurso = ?",
             Double::class.java,
             fkMaquina, fkRecurso
             )
