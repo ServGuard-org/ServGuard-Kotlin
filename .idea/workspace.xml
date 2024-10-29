@@ -6,10 +6,6 @@
   <component name="ChangeListManager">
     <list default="true" id="a0a69d1d-f943-44e4-b350-faf39f97ba8d" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/conexao_bd/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/conexao_bd/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/conexao_bd/src/main/kotlin/AppSlack.kt" beforeDir="false" afterPath="$PROJECT_DIR$/conexao_bd/src/main/kotlin/AppSlack.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/conexao_bd/src/main/kotlin/repositorio_maquina_recurso/MaquinaRecursoRepositorio.kt" beforeDir="false" afterPath="$PROJECT_DIR$/conexao_bd/src/main/kotlin/repositorio_maquina_recurso/MaquinaRecursoRepositorio.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/conexao_bd/src/main/kotlin/repositorio_volume/VolumeRepositorio.kt" beforeDir="false" afterPath="$PROJECT_DIR$/conexao_bd/src/main/kotlin/repositorio_volume/VolumeRepositorio.kt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -57,7 +53,7 @@
       <recent name="F:\Geral\SPTECH\2o Semestre\PI\teste\ServGuard-Kotlin\jars" />
     </key>
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="Kotlin.AppSlackKt">
     <configuration name="AppSlackKt" type="JetRunConfigurationType" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="AppSlackKt" />
       <module name="conexao_bd" />
