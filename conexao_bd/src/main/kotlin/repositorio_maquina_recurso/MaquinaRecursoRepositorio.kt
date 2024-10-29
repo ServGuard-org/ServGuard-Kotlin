@@ -4,6 +4,8 @@ import dominio_maquina_recurso.MaquinaRecurso
 import org.apache.commons.dbcp2.BasicDataSource
 import org.springframework.jdbc.core.BeanPropertyRowMapper
 import org.springframework.jdbc.core.JdbcTemplate
+import org.springframework.jdbc.core.queryForObject
+import kotlin.math.max
 
 class MaquinaRecursoRepositorio {
 
@@ -53,6 +55,13 @@ class MaquinaRecursoRepositorio {
             Int::class.java,
             id
             ) > 0
+    }
+
+    fun obterAlerta(fkMaquina: Int, fkRecurso: Int):Double{
+        return jdbcTemplate.queryForObject("SELECT max FROM MaquinaRecurso WHERE fkMaquina = ?, and fkRecurso = ?",
+            Double::class.java,
+            fkMaquina, fkRecurso
+            )
     }
 
     fun buscarPorId(id: Int): MaquinaRecurso? {

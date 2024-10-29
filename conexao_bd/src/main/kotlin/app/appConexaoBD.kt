@@ -1,14 +1,16 @@
 package app
 
-import com.github.britooo.looca.api.core.Looca
 import dominio_captura.Captura
-import repositorio_captura.CapturaRepositorio
 import java.time.LocalDateTime
 import dominio_maquina.Maquina
 import dominio_maquina_recurso.MaquinaRecurso
+import dominio_slack.Slack
+import com.github.britooo.looca.api.core.Looca
+import repositorio_captura.CapturaRepositorio
 import repositorio_maquina.MaquinaRepositorio
 import repositorio_maquina_recurso.MaquinaRecursoRepositorio
 import repositorio_recurso.RecursoRepositorio
+import org.json.JSONObject
 
 open class Main {
     companion object {
@@ -46,7 +48,7 @@ open class Main {
                 println("Verificando máquina com MAC Address: ${intRede.enderecoMac}")
                 if(maquinaRepositorio.existePorMac(intRede.enderecoMac)) {
                     maquinaCadastrada = true
-                    println("\nMáquina já cadastrada! Capturando dados para o MAC: ${intRede.enderecoMac} ")
+                    println("\nMáquina localizada! Capturando dados para o MAC Address: ${intRede.enderecoMac} ")
                     capturarDados(intRede.enderecoMac)
                     break
                 } else {
@@ -83,11 +85,7 @@ fun capturarDados(mac: String) {
 
     // Buscando o id da máquina pelo MAC
     val idMaquina: Int = maquinaRepositorio.buscaIdPorMac(mac)
-    println("ID da máquina encontrada para o MAC $mac: $idMaquina")
-
-    // ID do Recurso (fixo ou obtido de algum lugar)
-    val idRecurso = 1 // Exemplo: ID do recurso correspondente ao uso de rede
-    println("ID do Recurso: $idRecurso")
+    println("ID da máquina encontrada para o MAC Address: $mac, ID da máquina: $idMaquina\n\n\n")
 
     // Verificar se o IdMaquinaRecurso existe
 
@@ -113,7 +111,6 @@ fun capturarDados(mac: String) {
             return
         }
         listaIdMaquinaRecursos.add(idMaquinaRecurso)
-        println("ID máquina recurso encontrada: $idMaquinaRecurso, para o recurso: ${listaNomesRecursos[contador]}, de id: $idRecurso")
         contador ++
     }
 
@@ -130,10 +127,10 @@ fun capturarDados(mac: String) {
         val idMaquinaRecursoBytesEnviados = listaIdMaquinaRecursos[indicebytesEnviados]
         val idMaquinaRecursoBytesRecebidos = listaIdMaquinaRecursos[indicebytesRecebidos]
 
-        println("idMaquinaRecursoPCTEnviados: $idMaquinaRecursoPCTEnviados")
-        println("idMaquinaRecursoPCTRecebidos: $idMaquinaRecursoPCTRecebidos")
-        println("idMaquinaRecursoBytesEnviados: $idMaquinaRecursoBytesEnviados")
-        println("idMaquinaRecursoBytesRecebidos: $idMaquinaRecursoBytesRecebidos")
+//        println("idMaquinaRecursoPCTEnviados: $idMaquinaRecursoPCTEnviados")
+//        println("idMaquinaRecursoPCTRecebidos: $idMaquinaRecursoPCTRecebidos")
+//        println("idMaquinaRecursoBytesEnviados: $idMaquinaRecursoBytesEnviados")
+//        println("idMaquinaRecursoBytesRecebidos: $idMaquinaRecursoBytesRecebidos")
 
 
         // Capturando os bytes recebidos
@@ -152,7 +149,6 @@ fun capturarDados(mac: String) {
 
         // Inserindo os dados dos BytesRecebidos no Banco
         capturaRepositorio.inserirBytesRecebidos(idMaquinaRecursoBytesRecebidos,recebidosMB)
-        println("Dados de bytes recebidos estão sendo inseridos no banco de dados")
 
         // Capturando os bytes enviados
         var bytesEnviadosTotais: Long = 0
@@ -167,7 +163,6 @@ fun capturarDados(mac: String) {
         println("Bytes enviados: $enviadosMB MB")
 
         capturaRepositorio.inserirBytesEnviados(idMaquinaRecursoBytesEnviados, enviadosMB)
-        println("Dados de bytes enviados inseridos no banco")
 
         // Capturando os pacotes recebidos
         var pacotesRecebidosTotais: Long = 0
@@ -198,6 +193,8 @@ fun capturarDados(mac: String) {
 
         // Os dados serão capturados a cada 30 segundos
         Thread.sleep(30000)
+
+
 
     }
 

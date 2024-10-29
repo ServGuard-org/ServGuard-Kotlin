@@ -5,12 +5,29 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a0a69d1d-f943-44e4-b350-faf39f97ba8d" name="Changes" comment="">
+<<<<<<< HEAD
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+=======
+      <change afterPath="$PROJECT_DIR$/conexao_bd/src/main/kotlin/AppSlack.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/conexao_bd/src/main/kotlin/dominio_slack/Slack.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/conexao_bd/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/conexao_bd/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/conexao_bd/src/main/kotlin/app/appConexaoBD.kt" beforeDir="false" afterPath="$PROJECT_DIR$/conexao_bd/src/main/kotlin/app/appConexaoBD.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/conexao_bd/src/main/kotlin/repositorio_maquina_recurso/MaquinaRecursoRepositorio.kt" beforeDir="false" afterPath="$PROJECT_DIR$/conexao_bd/src/main/kotlin/repositorio_maquina_recurso/MaquinaRecursoRepositorio.kt" afterDir="false" />
+>>>>>>> f2730a00f3d141f7fe0c3c94c98531ef538a2faf
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Kotlin Class" />
+        <option value="Kotlin File" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -23,6 +40,7 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
+<<<<<<< HEAD
   <component name="PropertiesComponent">{
   &quot;keyToString&quot;: {
     &quot;Kotlin.Main.executor&quot;: &quot;Run&quot;,
@@ -37,6 +55,23 @@
     &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
     &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+=======
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Kotlin.AppSlackKt.executor": "Run",
+    "Kotlin.Main.executor": "Run",
+    "Maven.conexao_bd [package].executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "main",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "F:/Geral/SPTECH/2o Semestre/PI/teste/ServGuard-Kotlin/jars",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "vue.rearranger.settings.migration": "true"
+>>>>>>> f2730a00f3d141f7fe0c3c94c98531ef538a2faf
   }
 }</component>
   <component name="RecentsManager">
@@ -44,7 +79,14 @@
       <recent name="F:\Geral\SPTECH\2o Semestre\PI\teste\ServGuard-Kotlin\jars" />
     </key>
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="Kotlin.AppSlackKt">
+    <configuration name="AppSlackKt" type="JetRunConfigurationType" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="AppSlackKt" />
+      <module name="conexao_bd" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="Main" type="JetRunConfigurationType" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="app.Main" />
       <module name="conexao_bd" />
@@ -54,17 +96,10 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Kotlin.AppSlackKt" />
         <item itemvalue="Kotlin.Main" />
       </list>
     </recent_temporary>
-  </component>
-  <component name="SharedIndexes">
-    <attachedChunks>
-      <set>
-        <option value="bundled-jdk-9f38398b9061-39b83d9b5494-intellij.indexing.shared.core-IU-241.18034.62" />
-        <option value="bundled-js-predefined-1d06a55b98c1-0b3e54e931b4-JavaScript-IU-241.18034.62" />
-      </set>
-    </attachedChunks>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -76,7 +111,19 @@
       <updated>1727876027505</updated>
       <workItem from="1728345800269" duration="3339000" />
       <workItem from="1728932019698" duration="7111000" />
+<<<<<<< HEAD
       <workItem from="1729172393835" duration="2364000" />
+=======
+      <workItem from="1728953243557" duration="216000" />
+      <workItem from="1728956311814" duration="2226000" />
+      <workItem from="1728995128234" duration="3573000" />
+      <workItem from="1729033724090" duration="1078000" />
+      <workItem from="1729035673998" duration="1187000" />
+      <workItem from="1729113411836" duration="1263000" />
+      <workItem from="1729134674249" duration="72000" />
+      <workItem from="1729302311397" duration="155000" />
+      <workItem from="1729453236184" duration="1275000" />
+>>>>>>> f2730a00f3d141f7fe0c3c94c98531ef538a2faf
     </task>
     <servers />
   </component>
