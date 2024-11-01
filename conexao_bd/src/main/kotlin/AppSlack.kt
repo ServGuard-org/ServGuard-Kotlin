@@ -19,7 +19,7 @@ fun main() {
     maquina_recurso.configurar()
     println(maquina_recurso.obterAlerta(2,1))
 
-    slack.enviar(mensagem)
+    slack.enviarMensagem(mensagem)
 
 
 }

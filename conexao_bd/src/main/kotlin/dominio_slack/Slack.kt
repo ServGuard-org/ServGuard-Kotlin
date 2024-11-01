@@ -10,7 +10,7 @@ import java.net.URL
 class Slack(private val url: String) {
 
     @Throws(Exception::class)
-    fun enviar(message: JSONObject) {
+    fun enviarMensagem(message: JSONObject) {
         val obj = URL(url)
         val con = obj.openConnection() as HttpURLConnection
 

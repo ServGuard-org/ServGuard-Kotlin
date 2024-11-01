@@ -77,6 +77,8 @@ fun capturarDados(mac: String) {
     val capturaRepositorio = CapturaRepositorio()
     val maquinaRecursoRepositorio = MaquinaRecursoRepositorio()
     val recursoRepositorio = RecursoRepositorio()
+    val slack = Slack("https://hooks.slack.com/services/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")
+
 
     maquinaRepositorio.configurar()
     capturaRepositorio.configurar()
@@ -143,12 +145,25 @@ fun capturarDados(mac: String) {
             bytesRecebidosTotais += bytesRecebidos
 
         }
-
         val recebidosMB = bytesRecebidosTotais / (1024 * 1024)
         println("Bytes recebidos: $recebidosMB MB")
 
+        val mensagem1 = JSONObject().apply {
+            put("text", "\"Alerta! :rotating_light: \\n\\n BytesRecebidos da máquina:\\n- id: ${idMaquina} \" +\n" +
+                    "\"\\n- Hostname: ${mac} \\nChegou a: ${recebidosMB}%\"")
+        }
+        val maxBytesRecebidos = 1000000
+        val isAlertaBytesRecebidos = if (recebidosMB >= maxBytesRecebidos){
+            println("ALERTA!!!!!!!! BYTES RECEBIDOS CHEGOU A: $recebidosMB")
+            slack.enviarMensagem(mensagem1)
+            1
+        } else {
+            0
+        }
         // Inserindo os dados dos BytesRecebidos no Banco
-        capturaRepositorio.inserirBytesRecebidos(idMaquinaRecursoBytesRecebidos,recebidosMB)
+        capturaRepositorio.inserirBytesRecebidos(idMaquinaRecursoBytesRecebidos,recebidosMB, isAlertaBytesRecebidos)
+
+
 
         // Capturando os bytes enviados
         var bytesEnviadosTotais: Long = 0
@@ -158,11 +173,25 @@ fun capturarDados(mac: String) {
             val bytesEnviados: Long = intRede.bytesEnviados
             bytesEnviadosTotais += bytesEnviados
         }
-
         val enviadosMB = bytesEnviadosTotais / (1024 * 1024)
         println("Bytes enviados: $enviadosMB MB")
 
-        capturaRepositorio.inserirBytesEnviados(idMaquinaRecursoBytesEnviados, enviadosMB)
+        val mensagem2 = JSONObject().apply {
+            put("text", "\"Alerta! :rotating_light: \\n\\n BytesEnviados da máquina:\\n- id: ${idMaquina} \" +\n" +
+                    "\"\\n- Hostname: ${mac} \\nChegou a: ${enviadosMB}%\"")
+        }
+        val maxBytesEnviados = 1000000
+        val isAlertaBytesEnviados = if (enviadosMB >= maxBytesEnviados){
+            println("ALERTA!!!!!!!! BYTES ENVIADOS CHEGOU A: $enviadosMB")
+            slack.enviarMensagem(mensagem2)
+            1
+        } else {
+            0
+        }
+        // Inserindo os dados dos BytesEnviados no Banco
+        capturaRepositorio.inserirBytesEnviados(idMaquinaRecursoBytesEnviados, enviadosMB, isAlertaBytesEnviados)
+
+
 
         // Capturando os pacotes recebidos
         var pacotesRecebidosTotais: Long = 0
@@ -172,10 +201,26 @@ fun capturarDados(mac: String) {
             val pacotesRecebidos: Long = intRede.pacotesRecebidos
             pacotesRecebidosTotais += pacotesRecebidos
         }
-
         val pacotesRecebidos = pacotesRecebidosTotais
         println("Pacotes recebidos: $pacotesRecebidos")
-        capturaRepositorio.inserirPacotesRecebidos(idMaquinaRecursoPCTRecebidos, pacotesRecebidos)
+
+
+        val mensagem3 = JSONObject().apply {
+            put("text", "\"Alerta! :rotating_light: \\n\\n PacotesRecebidos da máquina:\\n- id: ${idMaquina} \" +\n" +
+                    "\"\\n- Hostname: ${mac} \\nChegou a: ${pacotesRecebidos}%\"")
+        }
+        val maxPacotesRecebidos = 10000
+        val isAlertaPacotesRecebidos = if (pacotesRecebidos >= maxPacotesRecebidos){
+            println("ALERTA!!!!!!!! PACOTES RECEBIDOS CHEGOU A: $pacotesRecebidos")
+            slack.enviarMensagem(mensagem3)
+            1
+        } else {
+            0
+        }
+        // Inserindo os dados dos PacotesRecebidos no Banco
+        capturaRepositorio.inserirPacotesRecebidos(idMaquinaRecursoPCTRecebidos, pacotesRecebidos, isAlertaPacotesRecebidos)
+
+
 
         // Capturando os pacotes enviados
         var pacotesEnviadosTotais: Long = 0
@@ -185,16 +230,27 @@ fun capturarDados(mac: String) {
             val pacotesEnviados: Long = intRede.pacotesEnviados
             pacotesEnviadosTotais += pacotesEnviados
         }
-
         val pacotesEnviados = pacotesEnviadosTotais
         println("Pacotes enviados: $pacotesEnviados")
 
-        capturaRepositorio.inserirPacotesEnviados(idMaquinaRecursoPCTEnviados, pacotesEnviados)
+
+        val mensagem4 = JSONObject().apply {
+            put("text", "\"Alerta! :rotating_light: \\n\\n PacotesEnviados da máquina:\\n- id: ${idMaquina} \" +\n" +
+                    "\"\\n- Hostname: ${mac} \\nChegou a: ${pacotesEnviados}%\"")
+        }
+        val maxPacotesEnviados = 10000
+        val isAlertaPacotesEnviados = if (pacotesEnviados >= maxPacotesEnviados){
+            println("ALERTA!!!!!!!! PACOTES ENVIADOS CHEGOU A: $pacotesEnviados")
+            slack.enviarMensagem(mensagem4)
+            1
+        } else {
+            0
+        }
+        // Inserindo os dados dos PacotesEnviados no Banco
+        capturaRepositorio.inserirPacotesEnviados(idMaquinaRecursoPCTEnviados, pacotesEnviados, isAlertaPacotesEnviados)
 
         // Os dados serão capturados a cada 30 segundos
         Thread.sleep(30000)
-
-
 
     }
 

@@ -55,39 +55,43 @@ class CapturaRepositorio {
             mac)
     }
 
-    fun inserirBytesEnviados(idMaquinaRecurso: Int, megabytesEnviados: Long): Boolean {
+    fun inserirBytesEnviados(idMaquinaRecurso: Int, megabytesEnviados: Long, isAlertaBytesEnviados:Int): Boolean {
         return jdbcTemplate.update("""
-            INSERT INTO Captura (fkMaquinaRecurso, registro) VALUES (?,?)
+            INSERT INTO Captura (fkMaquinaRecurso, registro, isAlerta) VALUES (?,?,?)
         """,
             idMaquinaRecurso,
             megabytesEnviados,
+            isAlertaBytesEnviados
         ) > 0
     }
 
-    fun inserirBytesRecebidos(idMaquinaRecurso: Int, megabytesRecebidos: Long): Boolean {
+    fun inserirBytesRecebidos(idMaquinaRecurso: Int, megabytesRecebidos: Long, isAlertaBytesRecebidos:Int): Boolean {
         return jdbcTemplate.update("""
-            INSERT INTO Captura (fkMaquinaRecurso, registro) VALUES (?,?)
+            INSERT INTO Captura (fkMaquinaRecurso, registro, isAlerta) VALUES (?,?,?)
         """,
             idMaquinaRecurso,
             megabytesRecebidos,
+            isAlertaBytesRecebidos
         ) > 0
     }
 
-    fun inserirPacotesRecebidos(idMaquinaRecurso: Int, pacotesRecebidos: Long): Boolean {
+    fun inserirPacotesRecebidos(idMaquinaRecurso: Int, pacotesRecebidos: Long, isAlertaPacotesRecebidos:Int): Boolean {
         return jdbcTemplate.update("""
-            INSERT INTO Captura (fkMaquinaRecurso, registro) VALUES (?,?)
+            INSERT INTO Captura (fkMaquinaRecurso, registro, isAlerta) VALUES (?,?,?)
         """,
             idMaquinaRecurso,
             pacotesRecebidos,
+            isAlertaPacotesRecebidos
         ) > 0
     }
 
-    fun inserirPacotesEnviados(idMaquinaRecurso: Int, pacotesEnviados: Long): Boolean {
+    fun inserirPacotesEnviados(idMaquinaRecurso: Int, pacotesEnviados: Long, isAlertaPacotesEnviados:Int): Boolean {
         return jdbcTemplate.update("""
-            INSERT INTO Captura (fkMaquinaRecurso, registro) VALUES (?,?)
+            INSERT INTO Captura (fkMaquinaRecurso, registro, isAlerta) VALUES (?,?,?)
         """,
             idMaquinaRecurso,
             pacotesEnviados,
+            isAlertaPacotesEnviados
         ) > 0
     }
 
