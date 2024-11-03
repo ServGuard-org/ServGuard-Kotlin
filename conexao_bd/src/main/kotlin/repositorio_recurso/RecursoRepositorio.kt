@@ -81,6 +81,14 @@ class RecursoRepositorio {
         )
     }
 
+    fun buscarAlertaPorMaquina(idMaquinaRecurso: Int): Double? {
+        return jdbcTemplate.queryForObject(
+            "SELECT max FROM MaquinaRecurso WHERE idMaquinaRecurso = ?",
+            Double::class.java,
+            idMaquinaRecurso
+        )
+    }
+
     fun deletarPorId(id:Int):Boolean{
         return jdbcTemplate.update(
             "DELETE FROM Recurso WHERE id = ?",

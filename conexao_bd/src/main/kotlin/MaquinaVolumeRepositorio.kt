@@ -1,3 +1,4 @@
+import io.github.cdimascio.dotenv.dotenv
 import org.apache.commons.dbcp2.BasicDataSource
 import org.springframework.jdbc.core.BeanPropertyRowMapper
 import org.springframework.jdbc.core.JdbcTemplate
@@ -8,11 +9,16 @@ class MaquinaVolumeRepositorio {
     lateinit var jdbcTemplate: JdbcTemplate
 
     fun configurar(){
+        val dotenv = dotenv {
+            directory = "conexao_bd/src/main/kotlin/"
+            ignoreIfMalformed = true
+            ignoreIfMissing = true
+        }
         val datasource = BasicDataSource()
         datasource.driverClassName = "com.mysql.cj.jdbc.Driver"
-        datasource.url = "jdbc:mysql://localhost:3306/ServGuard"
-        datasource.username = "seu_usuario"
-        datasource.password = "sua_senha"
+        datasource.url = "jdbc:mysql://${dotenv["DB_HOST"]}:${dotenv["DB_PORT"]}/${dotenv["DATABASE"]}?serverTimezone=America/Sao_Paulo"
+        datasource.username = dotenv["DB_USER"]
+        datasource.password = dotenv["DB_PASSWORD"]
 
         jdbcTemplate = JdbcTemplate(datasource)
     }

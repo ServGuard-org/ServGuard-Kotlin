@@ -6,6 +6,7 @@ import dominio_maquina.Maquina
 import dominio_maquina_recurso.MaquinaRecurso
 import dominio_slack.Slack
 import com.github.britooo.looca.api.core.Looca
+import io.github.cdimascio.dotenv.dotenv
 import repositorio_captura.CapturaRepositorio
 import repositorio_maquina.MaquinaRepositorio
 import repositorio_maquina_recurso.MaquinaRecursoRepositorio
@@ -72,12 +73,17 @@ open class Main {
 
 fun capturarDados(mac: String) {
 
+    val dotenv = dotenv {
+        directory = "conexao_bd/src/main/kotlin/"
+        ignoreIfMalformed = true
+        ignoreIfMissing = true
+    }
     val looca = Looca()
     val maquinaRepositorio = MaquinaRepositorio()
     val capturaRepositorio = CapturaRepositorio()
     val maquinaRecursoRepositorio = MaquinaRecursoRepositorio()
     val recursoRepositorio = RecursoRepositorio()
-    val slack = Slack("https://hooks.slack.com/services/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")
+    val slack = Slack(dotenv["URL_SLACK"])
 
 
     maquinaRepositorio.configurar()
@@ -118,7 +124,7 @@ fun capturarDados(mac: String) {
 
 
     while (true) {
-
+        val hostname: String = looca.rede.parametros.hostName
         val indicePacotesEnviados: Int = listaNomesRecursos.indexOf("pacotesEnviados")
         val indicePacotesRecebidos: Int = listaNomesRecursos.indexOf("pacotesRecebidos")
         val indicebytesEnviados: Int = listaNomesRecursos.indexOf("megabytesEnviados")
@@ -149,17 +155,20 @@ fun capturarDados(mac: String) {
         println("Bytes recebidos: $recebidosMB MB")
 
         val mensagem1 = JSONObject().apply {
-            put("text", "\"Alerta! :rotating_light: \\n\\n BytesRecebidos da máquina:\\n- id: ${idMaquina} \" +\n" +
-                    "\"\\n- Hostname: ${mac} \\nChegou a: ${recebidosMB}%\"")
+            put("text", "Alerta! :rotating_light: \n\n BytesRecebidos da máquina:\n- id: $idMaquina \n- Hostname: $hostname \nChegou a: ${recebidosMB} MBs!!")
         }
-        val maxBytesRecebidos = 1000000
-        val isAlertaBytesRecebidos = if (recebidosMB >= maxBytesRecebidos){
-            println("ALERTA!!!!!!!! BYTES RECEBIDOS CHEGOU A: $recebidosMB")
-            slack.enviarMensagem(mensagem1)
-            1
-        } else {
-            0
-        }
+
+        val maxBytesRecebidos = recursoRepositorio.buscarAlertaPorMaquina(idMaquinaRecursoBytesRecebidos)
+        val isAlertaBytesRecebidos = maxBytesRecebidos?.let {
+            if (recebidosMB >= it) {
+                println("ALERTA!!!!!!!! BYTES RECEBIDOS CHEGOU A: $recebidosMB")
+                slack.enviarMensagem(mensagem1)
+                1
+            } else {
+                0
+            }
+        } ?: 0
+
         // Inserindo os dados dos BytesRecebidos no Banco
         capturaRepositorio.inserirBytesRecebidos(idMaquinaRecursoBytesRecebidos,recebidosMB, isAlertaBytesRecebidos)
 
@@ -177,17 +186,20 @@ fun capturarDados(mac: String) {
         println("Bytes enviados: $enviadosMB MB")
 
         val mensagem2 = JSONObject().apply {
-            put("text", "\"Alerta! :rotating_light: \\n\\n BytesEnviados da máquina:\\n- id: ${idMaquina} \" +\n" +
-                    "\"\\n- Hostname: ${mac} \\nChegou a: ${enviadosMB}%\"")
+            put("text", "Alerta! :rotating_light: \n\n BytesEnviados da máquina:\n- id: $idMaquina \n- Hostname: $hostname \nChegou a: ${enviadosMB} MBs!!")
         }
-        val maxBytesEnviados = 1000000
-        val isAlertaBytesEnviados = if (enviadosMB >= maxBytesEnviados){
-            println("ALERTA!!!!!!!! BYTES ENVIADOS CHEGOU A: $enviadosMB")
-            slack.enviarMensagem(mensagem2)
-            1
-        } else {
-            0
-        }
+
+        val maxBytesEnviados = recursoRepositorio.buscarAlertaPorMaquina(idMaquinaRecursoBytesEnviados)
+        val isAlertaBytesEnviados = maxBytesEnviados?.let {
+            if (enviadosMB >= it) {
+                println("ALERTA!!!!!!!! BYTES ENVIADOS CHEGOU A: $enviadosMB")
+                slack.enviarMensagem(mensagem2)
+                1
+            } else {
+                0
+            }
+        } ?: 0
+
         // Inserindo os dados dos BytesEnviados no Banco
         capturaRepositorio.inserirBytesEnviados(idMaquinaRecursoBytesEnviados, enviadosMB, isAlertaBytesEnviados)
 
@@ -206,17 +218,20 @@ fun capturarDados(mac: String) {
 
 
         val mensagem3 = JSONObject().apply {
-            put("text", "\"Alerta! :rotating_light: \\n\\n PacotesRecebidos da máquina:\\n- id: ${idMaquina} \" +\n" +
-                    "\"\\n- Hostname: ${mac} \\nChegou a: ${pacotesRecebidos}%\"")
+            put("text", "Alerta! :rotating_light: \n\n PacotesRecebidos da máquina:\n- id: $idMaquina \n- Hostname: $hostname \nChegou a: ${pacotesRecebidos} Pacotes!!")
         }
-        val maxPacotesRecebidos = 10000
-        val isAlertaPacotesRecebidos = if (pacotesRecebidos >= maxPacotesRecebidos){
-            println("ALERTA!!!!!!!! PACOTES RECEBIDOS CHEGOU A: $pacotesRecebidos")
-            slack.enviarMensagem(mensagem3)
-            1
-        } else {
-            0
-        }
+
+        val maxPacotesRecebidos = recursoRepositorio.buscarAlertaPorMaquina(idMaquinaRecursoPCTRecebidos)
+        val isAlertaPacotesRecebidos = maxPacotesRecebidos?.let {
+            if (pacotesRecebidos >= it) {
+                println("ALERTA!!!!!!!! PACOTES RECEBIDOS CHEGOU A: $pacotesRecebidos")
+                slack.enviarMensagem(mensagem3)
+                1
+            } else {
+                0
+            }
+        } ?: 0
+
         // Inserindo os dados dos PacotesRecebidos no Banco
         capturaRepositorio.inserirPacotesRecebidos(idMaquinaRecursoPCTRecebidos, pacotesRecebidos, isAlertaPacotesRecebidos)
 
@@ -235,17 +250,20 @@ fun capturarDados(mac: String) {
 
 
         val mensagem4 = JSONObject().apply {
-            put("text", "\"Alerta! :rotating_light: \\n\\n PacotesEnviados da máquina:\\n- id: ${idMaquina} \" +\n" +
-                    "\"\\n- Hostname: ${mac} \\nChegou a: ${pacotesEnviados}%\"")
+            put("text", "Alerta! :rotating_light: \n\n PacotesEnviados da máquina:\n- id: $idMaquina \n- Hostname: $hostname \nChegou a: ${pacotesEnviados} Pacotes!!")
         }
-        val maxPacotesEnviados = 10000
-        val isAlertaPacotesEnviados = if (pacotesEnviados >= maxPacotesEnviados){
-            println("ALERTA!!!!!!!! PACOTES ENVIADOS CHEGOU A: $pacotesEnviados")
-            slack.enviarMensagem(mensagem4)
-            1
-        } else {
-            0
-        }
+
+        val maxPacotesEnviados = recursoRepositorio.buscarAlertaPorMaquina(idMaquinaRecursoPCTEnviados)
+        val isAlertaPacotesEnviados = maxPacotesEnviados?.let {
+            if (pacotesEnviados >= it) {
+                println("ALERTA!!!!!!!! PACOTES ENVIADOS CHEGOU A: $pacotesEnviados")
+                slack.enviarMensagem(mensagem4)
+                1
+            } else {
+                0
+            }
+        } ?: 0
+
         // Inserindo os dados dos PacotesEnviados no Banco
         capturaRepositorio.inserirPacotesEnviados(idMaquinaRecursoPCTEnviados, pacotesEnviados, isAlertaPacotesEnviados)
 
