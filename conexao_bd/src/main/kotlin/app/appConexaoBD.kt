@@ -12,6 +12,7 @@ import repositorio_maquina.MaquinaRepositorio
 import repositorio_maquina_recurso.MaquinaRecursoRepositorio
 import repositorio_recurso.RecursoRepositorio
 import org.json.JSONObject
+import kotlin.concurrent.thread
 
 open class Main {
     companion object {
@@ -124,6 +125,16 @@ fun capturarDados(mac: String) {
 
 
     while (true) {
+
+        println("Verificando se o monitoramento desta máquina está ativo...")
+        val isAtiva = maquinaRepositorio.buscaIsAtiva(idMaquina) == 1
+
+        if (!isAtiva) {
+            println("O monitoramento desta máquina está inativo!")
+            verificarIsAtiva(idMaquina)
+        }
+        println("O monitoramento desta máquina está ativo!")
+
         val hostname: String = looca.rede.parametros.hostName
         val indicePacotesEnviados: Int = listaNomesRecursos.indexOf("pacotesEnviados")
         val indicePacotesRecebidos: Int = listaNomesRecursos.indexOf("pacotesRecebidos")
@@ -273,3 +284,22 @@ fun capturarDados(mac: String) {
     }
 
 }
+
+fun verificarIsAtiva(idMaquina: Int) {
+    var i = 1
+
+    while (i == 1) {
+        val maquinaRepositorio = MaquinaRepositorio()
+        maquinaRepositorio.configurar()
+        println("Verificando se o monitoramento desta máquina está ativo...")
+        val isAtiva = maquinaRepositorio.buscaIsAtiva(idMaquina) == 1
+        if (isAtiva) {
+            i = 0
+        } else {
+            println("O monitoramento desta máquina está inativo!")
+            Thread.sleep(30000)
+        }
+    }
+    return
+}
+

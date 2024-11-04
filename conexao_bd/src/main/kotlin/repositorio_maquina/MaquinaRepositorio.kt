@@ -88,6 +88,12 @@ class MaquinaRepositorio{
             mac)
     }
 
+    fun buscaIsAtiva(idMaquina: Int): Int{
+        return jdbcTemplate.queryForObject("SELECT isAtiva FROM Maquina WHERE idMaquina = ?",
+            Int::class.java,
+            idMaquina)
+    }
+
     fun buscarPorId(id:Int): Maquina? {
         return jdbcTemplate.queryForObject("SELECT * FROM Maquina WHERE id = ?",
             BeanPropertyRowMapper(Maquina::class.java),
